@@ -22,4 +22,10 @@
         android:name="com.example.collegescheduler.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="com.example.collegescheduler.ui.list.ItemFragment"
+        android:label="@string/title_list"
+        tools:layout="@layout/fragment_item_list" />
 </navigation>
