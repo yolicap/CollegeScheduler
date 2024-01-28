@@ -4,4 +4,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_list">List</string>
+    <string-array name="item_types">
+        <item>All</item>
+        <item>Courses</item>
+        <item>Assignments</item>
+        <item>Exams</item>
+    </string-array>
 </resources>
