@@ -1,5 +1,8 @@
 package com.example.collegescheduler.item;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import java.time.LocalDateTime;
 
 public class AbstractItem implements Comparable<AbstractItem>{
@@ -8,7 +11,7 @@ public class AbstractItem implements Comparable<AbstractItem>{
     private String content;
     private String details;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime comparableTime;
     private boolean isTodo;
 
     public AbstractItem(String id, String content, String details) {
@@ -17,17 +20,21 @@ public class AbstractItem implements Comparable<AbstractItem>{
         this.details = details;
     }
 
+    public boolean equals(AbstractItem o) {
+        return compareTo(o) == 0;
+    }
+
     public int compareTo(AbstractItem o) {
         // compare this.localDataTime w o.getLocalDateTime()
         return 0;
     }
 
     public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+        return comparableTime;
     }
 
     public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+        this.comparableTime = localDateTime;
     }
     @Override
     public String toString() {
@@ -61,4 +68,20 @@ public class AbstractItem implements Comparable<AbstractItem>{
     public void setTodo(boolean todo) {
         isTodo = todo;
     }
+
+    // Used in ItemListAdapter... I'm sorry I think this doesn't go here
+    // TODO : extract class
+    public static final DiffUtil.ItemCallback<AbstractItem> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<AbstractItem>() {
+                @Override
+                public boolean areItemsTheSame(
+                        @NonNull AbstractItem oldItem, @NonNull AbstractItem newItem) {
+                    return oldItem.getId().equals(newItem.getId());
+                }
+                @Override
+                public boolean areContentsTheSame(
+                        @NonNull AbstractItem oldItem, @NonNull AbstractItem newItem) {
+                    return oldItem.equals(newItem);
+                }
+    };
 }
