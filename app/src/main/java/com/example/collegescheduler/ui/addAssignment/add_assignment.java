@@ -3,59 +3,75 @@ package com.example.collegescheduler.ui.addAssignment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.example.collegescheduler.R;
+import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
+import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
+
+
+import java.util.Calendar;
 
 public class add_assignment extends Fragment {
 
     private AddAssignmentViewModel mViewModel;
+    private FragmentAddAssignmentBinding binding;
 
-    public static add_assignment newInstance() {
-        return new add_assignment();
-    }
+    DatePickerDialog picker;
+    EditText eText;
+    TextView tvw;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_assignment, container, false);
+        DashboardViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(DashboardViewModel.class);
+
+        binding = FragmentAddAssignmentBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        //setContentView(R.layout.fragment_add_assignment);
+        tvw= binding.dateView;
+        eText= binding.editTextDate;
+        eText.setInputType(InputType.TYPE_NULL);
+        eText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(root.getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        return root;
 
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        });
-    }
-
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker.
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it.
-            return new DatePickerDialog(requireContext(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date the user picks.
-        }
     }
 
     @Override
@@ -63,6 +79,12 @@ public class add_assignment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(AddAssignmentViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }

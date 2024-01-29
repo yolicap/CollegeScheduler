@@ -27,11 +27,11 @@
         android:id="@+id/assignment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="@string/assignment_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_assignment" />
 
@@ -39,23 +39,47 @@
         android:id="@+id/assignment_course_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="@string/course_name"
-        app:layout_constraintBottom_toTopOf="@+id/pickDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assignment_name"
-        app:layout_constraintVertical_bias="0.421" />
+        app:layout_constraintTop_toBottomOf="@+id/assignment_name" />
 
-    <Button
-        android:id="@+id/pickDate"
+    <EditText
+        android:id="@+id/editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_due_date"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="425dp" />
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Enter Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.263"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_course_name" />
+
+    <Button
+        android:id="@+id/pickAssignmentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDate"
+        android:layout_marginTop="20dp"
+        android:text="Get Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.174"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pickAssignmentDate"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="18dp"/>
 
     <Button
         android:id="@+id/submitButton"
@@ -67,7 +91,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickDate" />
+        app:layout_constraintTop_toBottomOf="@+id/pickAssignmentDate"
+        app:layout_constraintVertical_bias="0.304" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

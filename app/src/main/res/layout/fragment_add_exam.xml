@@ -49,16 +49,56 @@
         app:layout_constraintTop_toBottomOf="@+id/exam_name"
         app:layout_constraintVertical_bias="0.421" />
 
-    <Button
-        android:id="@+id/pickDate"
+    <EditText
+        android:id="@+id/editTextExamDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/select_exam_date"
-        app:layout_constraintBottom_toTopOf="@+id/pickTime"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Enter Date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.263"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exam_course_name" />
+
+    <Button
+        android:id="@+id/pickExamDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDate"
+        android:layout_marginTop="20dp"
+        android:text="Select Exam Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.174"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextExamDate" />
+
+    <TextView
+        android:id="@+id/dateViewExam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pickExamDate"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/SelectedTime"
+        android:layout_width="336dp"
+        android:layout_height="48dp"
+        android:layout_above="@id/pickTime"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Time"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="412dp" />
 
     <Button
         android:id="@+id/pickTime"
@@ -66,9 +106,9 @@
         android:layout_height="wrap_content"
         android:text="@string/select_exam_time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="393dp" />
+        tools:layout_editor_absoluteY="474dp" />
 
     <EditText
         android:id="@+id/exam_location"
