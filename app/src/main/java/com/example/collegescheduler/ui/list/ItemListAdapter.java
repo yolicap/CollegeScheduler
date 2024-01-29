@@ -1,5 +1,8 @@
 package com.example.collegescheduler.ui.list;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -9,40 +12,40 @@ import android.widget.TextView;
 import com.example.collegescheduler.databinding.FragmentItemBinding;
 import com.example.collegescheduler.item.AbstractItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link AbstractItem}.
- * TODO: Replace the implementation with code for your data type.
+ * {@link ListAdapter} that can display a {@link AbstractItem}.
  */
-public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
+public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.ViewHolder> {
 
-    private final List<AbstractItem> mValues;
-
-    public ItemRecyclerViewAdapter(List<AbstractItem> items) {
-        mValues = items;
+    public ItemListAdapter(List<AbstractItem> items) {
+        super(AbstractItem.DIFF_CALLBACK);
+        submitList(items);
     }
 
+    public ItemListAdapter() {super(AbstractItem.DIFF_CALLBACK);}
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public void submitList(final List<AbstractItem> list) {
+        super.submitList(list != null ? new ArrayList<AbstractItem>(list) : null);
+    }
 
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
-        holder.mContentView.setText(mValues.get(position).getContent());
+        holder.mItem = getItem(position);
+        holder.mIdView.setText(getItem(position).getId());
+        holder.mContentView.setText(getItem(position).getContent());
     }
 
-    @Override
-    public int getItemCount() {
-        return mValues.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
         public AbstractItem mItem;
@@ -53,9 +56,11 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mContentView = binding.content;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+
     }
 }
