@@ -10,6 +10,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.collegescheduler.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.collegescheduler.DataBase;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DataBase.put("test", new String[] {"1", "2", "3"});
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
