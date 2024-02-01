@@ -4,22 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
-import com.example.collegescheduler.ui.home.ListViewTest;
 
-import java.sql.Array;
 import java.util.Enumeration;
 
 public class HomeFragment extends Fragment {
@@ -27,8 +22,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     ListView simpleList;
-    String countryList[] = {"India", "France", "USA", "Switzerland", "UK"};
-    String ratingsList[] = {"4/5", "3/5", "5/5", "6/5", "3/5"};
 
     int courseSize = DataBase.getCourseDict().size();
     int examSize = DataBase.getExamDict().size();
@@ -41,10 +34,21 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         // populate courses[] and exams[]
+        Enumeration<CourseItem> courseEnu = DataBase.getCourseDict().elements();
+        int ind = 0;
+        while (courseEnu.hasMoreElements()) {
+            courses[ind] = courseEnu.nextElement();
+            ind++;
+        }
+        Enumeration<ExamItem> examEnu = DataBase.getExamDict().elements();
+        ind = 0;
+        while (examEnu.hasMoreElements()) {
+            exams[ind] = examEnu.nextElement();
+        }
 
         // handle ListView
-        simpleList = (ListView)root.findViewById(R.id.list_view);
-        CustomAdapter customAdapter = new CustomAdapter(root.getContext(), countryList, ratingsList);
+        simpleList = root.findViewById(R.id.list_view);
+        CustomAdapter customAdapter = new CustomAdapter(root.getContext(), courses, exams);
         simpleList.setAdapter(customAdapter);
 
         return root;
