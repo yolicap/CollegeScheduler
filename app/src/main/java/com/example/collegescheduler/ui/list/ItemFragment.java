@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.item.AbstractItem;
 import com.example.collegescheduler.ui.list.item.ItemContent;
@@ -93,14 +94,18 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
         // TODO : create enum in item package
         switch( position ) {
             case 0: ;
-                // TODO : replace w global items list
-                updateList(ItemContent.ITEMS);
+                // need to get all
+                updateList(DataBase.getAssignmentsList());
                 break;
-
-            // TODO : submit global type specific list
             case 1 :
+                updateList(DataBase.getAssignmentsList());
+                break;
             case 2 :
+                updateList(DataBase.getCoursesList());
+                break;
             case 3 :
+                updateList(DataBase.getExamsList());
+                break;
             default:
                 updateList(new ArrayList<AbstractItem>());
         }
@@ -109,8 +114,10 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO : use global items list
-        updateList(ItemContent.ITEMS);
+        updateList(new ArrayList<AbstractItem>());
     }
 
-    private void updateList(List<AbstractItem> newList){itemListAdapter.submitList(newList);}
+    private void updateList(List<? extends AbstractItem> newList){
+        itemListAdapter.submitList(new ArrayList<AbstractItem>(newList));
+    }
 }
