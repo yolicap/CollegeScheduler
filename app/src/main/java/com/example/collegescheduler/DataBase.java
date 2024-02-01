@@ -6,19 +6,22 @@ import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 import java.util.UUID;
 
 public class DataBase {
 
-    private static Dictionary<UUID, AssignmentItem> assignmentDict = new Hashtable<>();
-    private static Dictionary<UUID, CourseItem> courseDict = new Hashtable<>();
-    private static Dictionary<UUID, ExamItem> examDict = new Hashtable<>();
+    // TODO should be final
+    private static Hashtable<UUID, AssignmentItem> assignmentDict = new Hashtable<>();
+    private static Hashtable<UUID, CourseItem> courseDict = new Hashtable<>();
+    private static Hashtable<UUID, ExamItem> examDict = new Hashtable<>();
 
     /*
     what an Assignment needs: name, time (specific), class
@@ -54,6 +57,7 @@ public class DataBase {
         examDict.remove(id);
     }
 
+    // TODO: pass dict reference?
     public static Dictionary<UUID, AssignmentItem> getAssignmentDict() {
         return assignmentDict;
     }
@@ -64,5 +68,17 @@ public class DataBase {
 
     public static Dictionary<UUID, ExamItem> getExamDict() {
         return examDict;
+    }
+
+    public static List<AssignmentItem> getAssignmentsList() {
+        return new ArrayList<AssignmentItem>(assignmentDict.values());
+    }
+
+    public static List<CourseItem> getCoursesList() {
+        return new ArrayList<CourseItem>(courseDict.values());
+    }
+
+    public static List<ExamItem> getExamsList() {
+        return new ArrayList<ExamItem>(examDict.values());
     }
 }
