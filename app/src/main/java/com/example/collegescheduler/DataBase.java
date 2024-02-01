@@ -1,25 +1,44 @@
 package com.example.collegescheduler;
+import android.content.res.AssetManager;
+
+import com.example.collegescheduler.item.AbstractItem;
+import com.example.collegescheduler.item.AssignmentItem;
+import com.example.collegescheduler.item.CourseItem;
+import com.example.collegescheduler.item.ExamItem;
+
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Enumeration;
 import java.util.Map;
 
+import java.util.UUID;
+
 public class DataBase {
 
-    public static Dictionary<String, String[]> data = new Hashtable<>();
+    private static Dictionary<UUID, AssignmentItem> assignmentDict = new Hashtable<>();
+    private static Dictionary<UUID, CourseItem> courseDict = new Hashtable<>();
+    private static Dictionary<UUID, ExamItem> examDict = new Hashtable<>();
 
-    public static void put(String id, String[] values) {
-        data.put(id, values);
+    /*
+    what an Assignment needs: name, time (specific), class
+    what a Course needs: name, time (weekly)
+    what an Exam needs: name, time (specific), class
+    everything needs a type to specify what it is
+
+    AbstractItem has [name, type]
+    [String name, String type, String ]
+     */
+
+    public static AssignmentItem getAssignment(UUID id) {
+        return assignmentDict.get(id);
     }
 
-    public static String[] remove(String id) {
-        String[] values = data.get(id);
-        data.remove(id);
-        return values;
+    public static CourseItem getCourse(UUID id) {
+        return courseDict.get(id);
     }
 
-    public static String[] get(String id) {
-        return data.get(id);
+    public static ExamItem getExam(UUID id) {
+        return examDict.get(id);
     }
 }
