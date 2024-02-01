@@ -41,4 +41,16 @@ public class DataBase {
     public static ExamItem getExam(UUID id) {
         return examDict.get(id);
     }
+
+    public static void removeAssignment(UUID id) {
+        assignmentDict.remove(id);
+    }
+
+    public static void removeCourse(UUID id) {
+        courseDict.remove(id);
+    }
+
+    public static void removeExam(UUID id) {
+        examDict.remove(id);
+    }
 }
