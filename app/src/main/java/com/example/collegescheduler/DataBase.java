@@ -53,4 +53,16 @@ public class DataBase {
     public static void removeExam(UUID id) {
         examDict.remove(id);
     }
+
+    public static Dictionary<UUID, AssignmentItem> getAssignmentDict() {
+        return assignmentDict;
+    }
+
+    public static Dictionary<UUID, CourseItem> getCourseDict() {
+        return courseDict;
+    }
+
+    public static Dictionary<UUID, ExamItem> getExamDict() {
+        return examDict;
+    }
 }

@@ -12,11 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
+import com.example.collegescheduler.item.CourseItem;
+import com.example.collegescheduler.item.ExamItem;
 import com.example.collegescheduler.ui.home.ListViewTest;
 
 import java.sql.Array;
+import java.util.Enumeration;
 
 public class HomeFragment extends Fragment {
 
@@ -26,10 +30,19 @@ public class HomeFragment extends Fragment {
     String countryList[] = {"India", "France", "USA", "Switzerland", "UK"};
     String ratingsList[] = {"4/5", "3/5", "5/5", "6/5", "3/5"};
 
+    int courseSize = DataBase.getCourseDict().size();
+    int examSize = DataBase.getExamDict().size();
+    CourseItem[] courses = new CourseItem[courseSize];
+    ExamItem[] exams = new ExamItem[examSize];
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // create binding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // populate courses[] and exams[]
+
+        // handle ListView
         simpleList = (ListView)root.findViewById(R.id.list_view);
         CustomAdapter customAdapter = new CustomAdapter(root.getContext(), countryList, ratingsList);
         simpleList.setAdapter(customAdapter);
