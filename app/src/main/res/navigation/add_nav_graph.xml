@@ -18,7 +18,7 @@
         android:id="@+id/add_Course2"
         android:name="com.example.collegescheduler.ui.addCourse.Add_Course"
         android:label="fragment_add__course"
-        tools:layout="@layout/fragment_add__course" >
+        tools:layout="@layout/fragment_add_course" >
         <action
             android:id="@+id/action_add_Course2_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
