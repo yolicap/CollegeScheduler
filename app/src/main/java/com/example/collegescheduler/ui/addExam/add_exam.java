@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import com.example.collegescheduler.MainActivity;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
 import com.example.collegescheduler.databinding.FragmentAddExamBinding;
+import com.example.collegescheduler.ui.addAssignment.add_assignment;
+import com.example.collegescheduler.ui.dashboard.DashboardFragment;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 import java.util.Calendar;
@@ -54,24 +57,6 @@ public class add_exam extends Fragment {
         tvw= binding.dateViewExam;
         eText= binding.editTextExamDate;
         eText.setInputType(InputType.TYPE_NULL);
-        eText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                picker = new DatePickerDialog(root.getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, year, month, day);
-                picker.show();
-            }
-        });
 
         // on below line we are initializing our variables.
         pickTimeBtn = binding.pickTime;
@@ -110,6 +95,37 @@ public class add_exam extends Fragment {
         return root;
 
 
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.backButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(add_exam.this)
+                        .navigate(R.id.action_navigation_add_assignment_to_navigation_dashboard);
+            }
+        });
+
+        binding.pickExamDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(binding.pickExamDate.getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     @Override
