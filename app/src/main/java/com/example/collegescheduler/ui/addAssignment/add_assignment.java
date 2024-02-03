@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -18,7 +19,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
+import com.example.collegescheduler.ui.addCourse.Add_Course;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 
@@ -46,7 +49,24 @@ public class add_assignment extends Fragment {
         tvw= binding.dateView;
         eText= binding.editTextDate;
         eText.setInputType(InputType.TYPE_NULL);
-        eText.setOnClickListener(new View.OnClickListener() {
+
+        return root;
+
+
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.backButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(add_assignment.this)
+                        .navigate(R.id.action_navigation_add_assignment_to_navigation_dashboard);
+            }
+        });
+
+        binding.pickAssignmentDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar cldr = Calendar.getInstance();
@@ -54,7 +74,7 @@ public class add_assignment extends Fragment {
                 int month = cldr.get(Calendar.MONTH);
                 int year = cldr.get(Calendar.YEAR);
                 // date picker dialog
-                picker = new DatePickerDialog(root.getContext(),
+                picker = new DatePickerDialog(binding.pickAssignmentDate.getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -64,14 +84,6 @@ public class add_assignment extends Fragment {
                 picker.show();
             }
         });
-
-        return root;
-
-
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

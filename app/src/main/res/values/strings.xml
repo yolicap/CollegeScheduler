@@ -22,4 +22,6 @@
     <string name="exam_title">Exam Title</string>
     <string name="select_exam_date">Select Exam Date</string>
     <string name="select_exam_time">Select Exam Time</string>
+    <string name="back">BACK</string>
+    <string name="select_course_time">Select Course Time</string>
 </resources>
