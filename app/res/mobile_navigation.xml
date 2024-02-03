@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.collegescheduler.ui.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_add_course"
+            app:destination="@id/navigation_add_course" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_add_exam"
+            app:destination="@id/navigation_add_exam" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_add_assignment"
+            app:destination="@id/navigation_add_assignment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_add_course"
+        android:name="com.example.collegescheduler.ui.addCourse.Add_Course"
+        android:label="fragment_add_course"
+        tools:layout="@layout/fragment_add_course" />
+    <fragment
+        android:id="@+id/navigation_add_assignment"
+        android:name="com.example.collegescheduler.ui.addAssignment.add_assignment"
+        android:label="fragment_add_assignment"
+        tools:layout="@layout/fragment_add_assignment" />
+    <fragment
+        android:id="@+id/navigation_add_exam"
+        android:name="com.example.collegescheduler.ui.addExam.add_exam"
+        android:label="fragment_add_exam"
+        tools:layout="@layout/fragment_add_exam" />
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.collegescheduler.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.collegescheduler.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="com.example.collegescheduler.ui.list.ItemFragment"
+        android:label="@string/title_list"
+        tools:layout="@layout/fragment_item_list" />
+</navigation>
