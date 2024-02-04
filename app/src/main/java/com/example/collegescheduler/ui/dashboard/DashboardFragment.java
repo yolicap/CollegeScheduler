@@ -39,7 +39,28 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(DashboardFragment.this)
-                        .navigate(R.id.action_dashboardFragment_to_add_Course2);
+                        .navigate(R.id.action_navigation_dashboard_to_navigation_add_course);
+            }
+        });
+        binding.Assignment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardFragment.this)
+                        .navigate(R.id.action_navigation_dashboard_to_navigation_add_assignment);
+            }
+        });
+        binding.Exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardFragment.this)
+                        .navigate(R.id.action_navigation_dashboard_to_navigation_add_exam);
+            }
+        });
+        binding.Exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardFragment.this)
+                        .navigate(R.id.action_navigation_dashboard_to_navigation_add_exam);
             }
         });
     }

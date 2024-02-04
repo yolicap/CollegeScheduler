@@ -24,17 +24,29 @@
         android:id="@+id/navigation_add_course"
         android:name="com.example.collegescheduler.ui.addCourse.Add_Course"
         android:label="fragment_add_course"
-        tools:layout="@layout/fragment_add_course" />
+        tools:layout="@layout/fragment_add_course" >
+        <action
+            android:id="@+id/action_navigation_add_course_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_add_exam"
         android:name="com.example.collegescheduler.ui.addExam.add_exam"
         android:label="fragment_add_exam"
-        tools:layout="@layout/fragment_add_exam" />
+        tools:layout="@layout/fragment_add_exam" >
+        <action
+            android:id="@+id/action_navigation_add_exam_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_add_assignment"
         android:name="com.example.collegescheduler.ui.addAssignment.add_assignment"
         android:label="fragment_add_assignment"
-        tools:layout="@layout/fragment_add_assignment" />
+        tools:layout="@layout/fragment_add_assignment" >
+        <action
+            android:id="@+id/action_navigation_add_assignment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.collegescheduler.ui.home.HomeFragment"
