@@ -1,8 +1,10 @@
 package com.example.collegescheduler.ui.addAssignment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,13 +16,14 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
-import com.example.collegescheduler.ui.addAssignment.AddAssignmentViewModel;
+import com.example.collegescheduler.ui.addCourse.AddCourse;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 
@@ -81,6 +84,32 @@ public class add_assignment extends Fragment {
                             }
                         }, year, month, day);
                 picker.show();
+            }
+        });
+
+        binding.submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(binding.submitButton.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Confirm Add!");
+                builder.setMessage("Do you want to add this assignment?");
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // add submit function
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

@@ -26,6 +26,7 @@ import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
 import com.example.collegescheduler.item.CourseItem;
+import com.example.collegescheduler.ui.addCourse.AddCourseViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -194,39 +195,58 @@ public class AddCourse extends Fragment {
 
         submitButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                final EditText courseNameEditText = (EditText) view.getRootView().findViewById(R.id.course_name);
-                final EditText profNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.prof_name);
-                final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.location_name);
+                AlertDialog.Builder builder = new AlertDialog.Builder(binding.submitButton.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Confirm Add!");
+                builder.setMessage("Do you want to add this course?");
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final EditText courseNameEditText = (EditText) view.getRootView().findViewById(R.id.course_name);
+                        final EditText profNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.prof_name);
+                        final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.location_name);
 
-                if (courseNameEditText == null ||
-                        profNameEditText == null ||
-                        locationNameEditText == null) {
-                    System.out.println("Could not find input fields.");
-                    return ;
-                }
-//        final CourseItem course = DataBase.getCourseByName(
-//                courseNameEditText.getText().toString()
-//        );
-                final String courseName = courseNameEditText.getText().toString();
-                final String profName = profNameEditText.getText().toString();
-                final String locationName = locationNameEditText.getText().toString();
+                        if (courseNameEditText == null ||
+                                profNameEditText == null ||
+                                locationNameEditText == null) {
+                            System.out.println("Could not find input fields.");
+                            return ;
+                        }
+//                      final CourseItem course = DataBase.getCourseByName(
+//                          courseNameEditText.getText().toString()
+//                      );
+                        final String courseName = courseNameEditText.getText().toString();
+                        final String profName = profNameEditText.getText().toString();
+                        final String locationName = locationNameEditText.getText().toString();
 
-                if (courseName.isEmpty() ||
-                    profName.isEmpty() ||
-                    locationName.isEmpty() ){
-                    System.out.println("Required fields empty");
-                    return ;
-                }
+                        if (courseName.isEmpty() ||
+                                profName.isEmpty() ||
+                                locationName.isEmpty() ){
+                            System.out.println("Required fields empty");
+                            return ;
+                        }
 
-                final CourseItem course = new CourseItem(courseName, "");
-                course.setProfessor(profName);
-                course.setBuilding(locationName);
-                DataBase.addCourse(course);
+                        final CourseItem course = new CourseItem(courseName, "");
+                        course.setProfessor(profName);
+                        course.setBuilding(locationName);
+                        DataBase.addCourse(course);
 
-                // TODO : Check if null
-                // TODO : Add times
-                // TODO : Exit
-                System.out.println("Course added!");
+                        // TODO : Check if null
+                        // TODO : Add times
+                        // TODO : Exit
+                        System.out.println("Course added!");
+                    }
+                });
+
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
