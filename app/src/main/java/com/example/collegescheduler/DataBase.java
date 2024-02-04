@@ -7,6 +7,7 @@ import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class DataBase {
 
@@ -40,6 +42,9 @@ public class DataBase {
     public static CourseItem getCourse(UUID id) {
         return courseDict.get(id);
     }
+    public static CourseItem getCourseByName(String name){
+        return FindUtils.findByProperty(getCoursesList(), course -> name.equals(course.getName()));
+    }
 
     public static ExamItem getExam(UUID id) {
         return examDict.get(id);
@@ -56,6 +61,10 @@ public class DataBase {
     public static void removeExam(UUID id) {
         examDict.remove(id);
     }
+
+    public static void addCourse(CourseItem course){courseDict.put(course.getId(), course);}
+    public static void addExam(ExamItem exam){examDict.put(exam.getId(), exam);}
+    public static void addAssignment(AssignmentItem assignment){assignmentDict.put(assignment.getId(), assignment);}
 
     // TODO: pass dict reference?
     public static Dictionary<UUID, AssignmentItem> getAssignmentDict() {
@@ -80,5 +89,12 @@ public class DataBase {
 
     public static List<ExamItem> getExamsList() {
         return new ArrayList<ExamItem>(examDict.values());
+    }
+}
+
+// create protected class when refactoring database to package
+final class FindUtils {
+    public static <T> T findByProperty(Collection<T> col, Predicate<T> filter) {
+        return col.stream().filter(filter).findFirst().orElse(null);
     }
 }
