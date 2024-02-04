@@ -141,6 +141,7 @@ public class Add_Course extends Fragment {
                     }
                 });
 
+
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -188,6 +189,33 @@ public class Add_Course extends Fragment {
                 builder.show();
             }
         });
+
+        binding.submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(binding.submitButton.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Confirm Add!");
+                builder.setMessage("Do you want to add this course?");
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // add submit function
+
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     @Override
@@ -197,19 +225,4 @@ public class Add_Course extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    public void submitButtonHandler(View view) {
-        final EditText courseNameEditText = (EditText) view.findViewById(R.id.course_name);
-        final EditText profNameEditText = (EditText) view.findViewById(R.id.prof_name);
-        final EditText locationNameEditText = (EditText) view.findViewById(R.id.location_name);
-
-//        final CourseItem course = DataBase.getCourseByName(
-//                courseNameEditText.getText().toString()
-//        );
-        final String courseName = courseNameEditText.getText().toString();
-        final String profName = profNameEditText.getText().toString();
-        final String locationName = locationNameEditText.getText().toString();
-
-        final CourseItem course = new CourseItem(courseName, "");
-        DataBase.addCourse(course);
-    }
 }
