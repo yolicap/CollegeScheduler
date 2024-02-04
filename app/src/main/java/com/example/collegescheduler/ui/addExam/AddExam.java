@@ -23,17 +23,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.collegescheduler.MainActivity;
 import com.example.collegescheduler.R;
-import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
 import com.example.collegescheduler.databinding.FragmentAddExamBinding;
-import com.example.collegescheduler.ui.addAssignment.add_assignment;
-import com.example.collegescheduler.ui.dashboard.DashboardFragment;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 import java.util.Calendar;
 
-public class add_exam extends Fragment {
+public class AddExam extends Fragment {
 
     private AddExamViewModel mViewModel;
 
@@ -105,7 +101,7 @@ public class add_exam extends Fragment {
         binding.backButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(add_exam.this)
+                NavHostFragment.findNavController(AddExam.this)
                         .navigate(R.id.action_navigation_add_assignment_to_navigation_dashboard);
             }
         });

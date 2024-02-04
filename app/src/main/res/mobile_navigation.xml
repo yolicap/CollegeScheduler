@@ -28,12 +28,12 @@
         tools:layout="@layout/fragment_add_course" />
     <fragment
         android:id="@+id/navigation_add_assignment"
-        android:name="com.example.collegescheduler.ui.addAssignment.add_assignment"
+        android:name="com.example.collegescheduler.ui.addAssignment.AddAssignment"
         android:label="fragment_add_assignment"
         tools:layout="@layout/fragment_add_assignment" />
     <fragment
         android:id="@+id/navigation_add_exam"
-        android:name="com.example.collegescheduler.ui.addExam.add_exam"
+        android:name="com.example.collegescheduler.ui.addExam.AddExam"
         android:label="fragment_add_exam"
         tools:layout="@layout/fragment_add_exam" />
     <fragment
@@ -83,12 +83,12 @@
         tools:layout="@layout/fragment_add_course" />
     <fragment
         android:id="@+id/navigation_add_assignment"
-        android:name="com.example.collegescheduler.ui.addAssignment.add_assignment"
+        android:name="com.example.collegescheduler.ui.addAssignment.AddAssignment"
         android:label="fragment_add_assignment"
         tools:layout="@layout/fragment_add_assignment" />
     <fragment
         android:id="@+id/navigation_add_exam"
-        android:name="com.example.collegescheduler.ui.addExam.add_exam"
+        android:name="com.example.collegescheduler.ui.addExam.AddExam"
         android:label="fragment_add_exam"
         tools:layout="@layout/fragment_add_exam" />
     <fragment

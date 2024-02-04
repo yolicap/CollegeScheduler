@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/course_name" />
 
     <TextView
-        android:id="@+id/SelectedCourseTime"
+        android:id="@+id/selectedCourseTime"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_above="@id/pickCourseTime"
@@ -74,6 +74,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SelectedCourseTime" />
+        app:layout_constraintTop_toBottomOf="@+id/selectedCourseTime" />
 
     <TextView
         android:id="@+id/course_days"

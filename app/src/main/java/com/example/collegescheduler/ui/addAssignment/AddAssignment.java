@@ -16,20 +16,18 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
-import com.example.collegescheduler.ui.addCourse.AddCourse;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 
 import java.util.Calendar;
 
-public class add_assignment extends Fragment {
+public class AddAssignment extends Fragment {
 
     private AddAssignmentViewModel mViewModel;
     private FragmentAddAssignmentBinding binding;
@@ -63,7 +61,7 @@ public class add_assignment extends Fragment {
         binding.backButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(add_assignment.this)
+                NavHostFragment.findNavController(AddAssignment.this)
                         .navigate(R.id.action_navigation_add_assignment_to_navigation_dashboard);
             }
         });

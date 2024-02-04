@@ -1,9 +1,11 @@
 package com.example.collegescheduler.ui.addCourse;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,9 +30,15 @@ import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.ui.addCourse.AddCourseViewModel;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 
 public class AddCourse extends Fragment {
 
@@ -60,6 +68,7 @@ public class AddCourse extends Fragment {
         return root;
     }
 
+    // TODO : need to extract methods and inline classes
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -74,7 +83,7 @@ public class AddCourse extends Fragment {
 
         // on below line we are initializing our variables.
         pickTimeBtn = binding.pickCourseTime;
-        selectedTimeTV = binding.SelectedCourseTime;
+        selectedTimeTV = binding.selectedCourseTime;
 
         // on below line we are adding click
         // listener for our pick date button
@@ -97,7 +106,9 @@ public class AddCourse extends Fragment {
                                                   int minute) {
                                 // on below line we are setting selected time
                                 // in our text view.
-                                selectedTimeTV.setText(hourOfDay + ":" + minute);
+                                selectedTimeTV.setText(
+                                        String.format("%02d:%02d", hourOfDay, minute)
+                                );
                             }
                         }, hour, minute, false);
 //                 at last we are calling show to
@@ -143,6 +154,7 @@ public class AddCourse extends Fragment {
                     }
                 });
 
+                // TODO : this can easily be extracted since it's used by all add pages
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -193,6 +205,7 @@ public class AddCourse extends Fragment {
 
         Button submitButton = (Button) view.findViewById(R.id.submitButton);
 
+        // TODO : class can easily be extracted since it's used by all add pages
         submitButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(binding.submitButton.getContext());
@@ -200,45 +213,64 @@ public class AddCourse extends Fragment {
                 builder.setTitle("Confirm Add!");
                 builder.setMessage("Do you want to add this course?");
                 builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    // needs to be extracted
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         final EditText courseNameEditText = (EditText) view.getRootView().findViewById(R.id.course_name);
                         final EditText profNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.prof_name);
                         final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.location_name);
+                        final TextView selectTimeTextView = (TextView) view.getRootView().findViewById(R.id.selectedCourseTime);
+                        final TextView courseDaysTextView = (TextView) view.getRootView().findViewById(R.id.course_days);
 
                         if (courseNameEditText == null ||
                                 profNameEditText == null ||
-                                locationNameEditText == null) {
+                                locationNameEditText == null ||
+                                selectTimeTextView == null ||
+                                courseDaysTextView == null) {
                             System.out.println("Could not find input fields.");
-                            return ;
+                            return;
                         }
 //                      final CourseItem course = DataBase.getCourseByName(
 //                          courseNameEditText.getText().toString()
 //                      );
+
+                        // required fields
                         final String courseName = courseNameEditText.getText().toString();
                         final String profName = profNameEditText.getText().toString();
                         final String locationName = locationNameEditText.getText().toString();
 
+                        // optional fields
+                        final List<DayOfWeek> daysOfWeek = new ArrayList<DayOfWeek>();
+                        Arrays.stream(
+                                courseDaysTextView.getText().toString().split(", ")
+                        ).forEach(
+                                dayString -> {if (!dayString.isEmpty()) daysOfWeek.add( DayOfWeek.valueOf(dayString.toUpperCase()) );}
+                        );
+
+                        final LocalTime time = LocalTime.parse(
+                                selectTimeTextView.getText()
+                        );
+
                         if (courseName.isEmpty() ||
                                 profName.isEmpty() ||
-                                locationName.isEmpty() ){
+                                locationName.isEmpty()) {
                             System.out.println("Required fields empty");
-                            return ;
+                            return;
                         }
 
+                        // TODO : builder would be better here
                         final CourseItem course = new CourseItem(courseName, "");
                         course.setProfessor(profName);
                         course.setBuilding(locationName);
+                        course.setDaysOfWeek(daysOfWeek);
+                        course.setMeetingTimes(time);
                         DataBase.addCourse(course);
 
-                        // TODO : Check if null
-                        // TODO : Add times
-                        // TODO : Exit
+                        // TODO : exit page
                         System.out.println("Course added!");
                     }
-                });
-
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

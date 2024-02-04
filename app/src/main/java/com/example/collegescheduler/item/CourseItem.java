@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class CourseItem extends AbstractItem {
     private LocalTime meetingTimes;
-    private DayOfWeek dayOfWeek;
+    private List<DayOfWeek> daysOfWeek;
     private String professor;
     private String section;
 
@@ -38,12 +38,12 @@ public class CourseItem extends AbstractItem {
         this.meetingTimes = meetingTimes;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public List<DayOfWeek> getDayOfWeek() {
+        return daysOfWeek;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setDaysOfWeek(List<DayOfWeek> dayOfWeek) {
+        this.daysOfWeek = daysOfWeek;
     }
 
     public String getProfessor() {
