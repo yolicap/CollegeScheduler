@@ -1,11 +1,13 @@
 package com.example.collegescheduler.ui.addExam;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,11 +25,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddExamBinding;
+import com.example.collegescheduler.item.AssignmentItem;
+import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddExam extends Fragment {
 
@@ -137,9 +148,20 @@ public class AddExam extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // add submit function
+                        AlertDialog.Builder builder = new AlertDialog.Builder(binding.submitButton.getContext());
+                        builder.setCancelable(true);
+                        builder.setTitle("Confirm Add!");
+                        builder.setMessage("Do you want to add this course?");
+                        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            // needs to be extracted
+                            @RequiresApi(api = Build.VERSION_CODES.O)
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                             // TODO !!!!
+                            }
+                        });
                     }
-                });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -158,5 +180,4 @@ public class AddExam extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AddExamViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }

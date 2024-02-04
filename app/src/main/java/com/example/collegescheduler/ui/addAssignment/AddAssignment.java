@@ -1,10 +1,12 @@
 package com.example.collegescheduler.ui.addAssignment;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,11 +22,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
+import com.example.collegescheduler.item.AssignmentItem;
+import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class AddAssignment extends Fragment {
@@ -78,7 +84,9 @@ public class AddAssignment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                eText.setText(
+                                        String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)
+                                );
                             }
                         }, year, month, day);
                 picker.show();
@@ -94,9 +102,49 @@ public class AddAssignment extends Fragment {
                 builder.setTitle("Confirm Add!");
                 builder.setMessage("Do you want to add this assignment?");
                 builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // add submit function
+                        final EditText assignmentNameEditText = (EditText) view.getRootView().findViewById(R.id.assignment_name);
+                        final EditText assignmentCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.assignment_course_name);
+                        final EditText dateEditText = (EditText) view.getRootView().findViewById(R.id.editTextDate);
+
+                        if (assignmentNameEditText == null ||
+                                assignmentCourseNameEditText == null ||
+                                dateEditText == null) {
+                            System.out.println("Could not find input fields.");
+                            return;
+                        }
+
+                        // required fields
+                        final String assignmentName = assignmentNameEditText.getText().toString();
+
+                        // optional fields
+                        // needs to be formatted properly ?
+                        final LocalDate date = LocalDate.parse(
+                                dateEditText.getText().toString().isEmpty() ? "00/00/0000": dateEditText.getText()
+                        );
+                        final CourseItem course = DataBase.getCourseByName(
+                                assignmentCourseNameEditText.getText().toString()
+                        );
+
+                        if (assignmentName.isEmpty()) {
+                            System.out.println("Required fields empty");
+                            return;
+                        }
+
+                        // TODO : builder would be better here
+                        final AssignmentItem assignment = new AssignmentItem(assignmentName, "");
+                        assignment.setDueDate(date);
+                        if (course != null) {
+                            assignment.setCourse(course);
+                            course.addAssignment(assignment);
+                        }
+                        DataBase.addAssignment(assignment);
+
+                        // TODO : exit page
+                        System.out.println("Assignment added!");
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
