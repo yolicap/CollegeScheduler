@@ -16,13 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.collegescheduler.DataBase;
-import com.example.collegescheduler.MainActivity;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
 import com.example.collegescheduler.item.CourseItem;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
-public class Add_Course extends Fragment {
+public class AddCourse extends Fragment {
 
     private AddCourseViewModel mViewModel;
     private FragmentAddCourseBinding binding;
@@ -45,8 +45,8 @@ public class Add_Course extends Fragment {
     String[] daysArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
 
-    public static Add_Course newInstance() {
-        return new Add_Course();
+    public static AddCourse newInstance() {
+        return new AddCourse();
     }
 
     @Override
@@ -62,10 +62,11 @@ public class Add_Course extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.backButton1.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+//        binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(Add_Course.this)
+                NavHostFragment.findNavController(AddCourse.this)
                         .navigate(R.id.action_navigation_add_course_to_navigation_dashboard);
             }
         });
@@ -98,7 +99,7 @@ public class Add_Course extends Fragment {
                                 selectedTimeTV.setText(hourOfDay + ":" + minute);
                             }
                         }, hour, minute, false);
-                // at last we are calling show to
+//                 at last we are calling show to
                 // display our time picker dialog.
                 timePickerDialog.show();
             }
@@ -188,6 +189,46 @@ public class Add_Course extends Fragment {
                 builder.show();
             }
         });
+
+        Button submitButton = (Button) view.findViewById(R.id.submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                final EditText courseNameEditText = (EditText) view.getRootView().findViewById(R.id.course_name);
+                final EditText profNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.prof_name);
+                final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.location_name);
+
+                if (courseNameEditText == null ||
+                        profNameEditText == null ||
+                        locationNameEditText == null) {
+                    System.out.println("Could not find input fields.");
+                    return ;
+                }
+//        final CourseItem course = DataBase.getCourseByName(
+//                courseNameEditText.getText().toString()
+//        );
+                final String courseName = courseNameEditText.getText().toString();
+                final String profName = profNameEditText.getText().toString();
+                final String locationName = locationNameEditText.getText().toString();
+
+                if (courseName.isEmpty() ||
+                    profName.isEmpty() ||
+                    locationName.isEmpty() ){
+                    System.out.println("Required fields empty");
+                    return ;
+                }
+
+                final CourseItem course = new CourseItem(courseName, "");
+                course.setProfessor(profName);
+                course.setBuilding(locationName);
+                DataBase.addCourse(course);
+
+                // TODO : Check if null
+                // TODO : Add times
+                // TODO : Exit
+                System.out.println("Course added!");
+            }
+        });
     }
 
     @Override
@@ -197,19 +238,4 @@ public class Add_Course extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    public void submitButtonHandler(View view) {
-        final EditText courseNameEditText = (EditText) view.findViewById(R.id.course_name);
-        final EditText profNameEditText = (EditText) view.findViewById(R.id.prof_name);
-        final EditText locationNameEditText = (EditText) view.findViewById(R.id.location_name);
-
-//        final CourseItem course = DataBase.getCourseByName(
-//                courseNameEditText.getText().toString()
-//        );
-        final String courseName = courseNameEditText.getText().toString();
-        final String profName = profNameEditText.getText().toString();
-        final String locationName = locationNameEditText.getText().toString();
-
-        final CourseItem course = new CourseItem(courseName, "");
-        DataBase.addCourse(course);
-    }
 }

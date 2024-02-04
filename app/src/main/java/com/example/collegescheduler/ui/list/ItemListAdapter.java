@@ -29,6 +29,7 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
     @Override
     public void submitList(final List<AbstractItem> list) {
         super.submitList(list != null ? new ArrayList<AbstractItem>(list) : null);
+        System.out.println("New list submitted.");
     }
 
     @NonNull

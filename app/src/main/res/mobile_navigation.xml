@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_add_course"
-        android:name="com.example.collegescheduler.ui.addCourse.Add_Course"
+        android:name="com.example.collegescheduler.ui.addCourse.AddCourse"
         android:label="fragment_add_course"
         tools:layout="@layout/fragment_add_course" />
     <fragment
