@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -23,7 +24,7 @@ public class ItemContent {
     /**
      * A map of sample (placeholder) items, by ID.
      */
-    public static final Map<String, AbstractItem> ITEM_MAP = new HashMap<String, AbstractItem>();
+    public static final Map<UUID, AbstractItem> ITEM_MAP = new HashMap<UUID, AbstractItem>();
 
     private static final int COUNT = 25;
 
@@ -40,7 +41,7 @@ public class ItemContent {
     }
 
     private static AbstractItem createAbstractItem(int position) {
-        return new AbstractItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        return new AbstractItem("Item " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {

@@ -3,15 +3,18 @@ package com.example.collegescheduler.item;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.UUID;
 
 public class AssignmentItem extends AbstractItem{
     private LocalDate dueDate;
     private LocalTime dueTime;
     private CourseItem course;
 
-    public AssignmentItem(String id, String content, String details) {
+    public AssignmentItem(UUID id, String content, String details) {
         super(id, content, details);
     }
+
+    public AssignmentItem(String content, String details){super(content, details);}
 
     public LocalDate getDueDate() {
         return dueDate;

@@ -2,13 +2,14 @@ package com.example.collegescheduler.item;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.UUID;
 
 public class ExamItem extends AbstractItem {
     private LocalTime time;
     private String building;
     private String room;
     private CourseItem course;
-    public ExamItem(String id, String content, String details) {
+    public ExamItem(UUID id, String content, String details) {
         super(id, content, details);
     }
 

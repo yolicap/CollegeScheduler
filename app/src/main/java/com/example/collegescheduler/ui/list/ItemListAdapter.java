@@ -1,7 +1,6 @@
 package com.example.collegescheduler.ui.list;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,8 +40,8 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = getItem(position);
-        holder.mIdView.setText(getItem(position).getId());
-        holder.mContentView.setText(getItem(position).getContent());
+//        holder.mIdView.setText(getItem(position).getId());
+        holder.mContentView.setText(getItem(position).getName());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

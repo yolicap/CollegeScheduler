@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 public class CourseItem extends AbstractItem {
     private LocalTime meetingTimes;
@@ -16,9 +17,14 @@ public class CourseItem extends AbstractItem {
     private String room;
     private List<AssignmentItem> assignments;
     private List<ExamItem> exams;
-    public CourseItem(String id, String content, String details) {
+    public CourseItem(UUID id, String content, String details) {
         super(id, content, details);
     }
+
+    public CourseItem(String courseName, String content) {
+        super(courseName, content);
+    }
+
     public LocalDateTime getNextMeeting(){
         // TODO
         return null;

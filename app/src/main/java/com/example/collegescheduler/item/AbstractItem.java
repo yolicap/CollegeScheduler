@@ -4,19 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class AbstractItem implements Comparable<AbstractItem>{
 
-    private final String id;
-    private String content;
+    private final UUID id;
+    private String name;
     private String details;
 
     private LocalDateTime comparableTime;
     private boolean isTodo;
 
-    public AbstractItem(String id, String content, String details) {
+    public AbstractItem(UUID id, String name, String details) {
         this.id = id;
-        this.content = content;
+        this.name = name;
+        this.details = details;
+    }
+
+    public AbstractItem(String name, String details) {
+        this.id = UUID.randomUUID();
+        this.name = name;
         this.details = details;
     }
 
@@ -38,15 +45,15 @@ public class AbstractItem implements Comparable<AbstractItem>{
     }
     @Override
     public String toString() {
-        return content;
+        return name;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
     public String getDetails() {
@@ -57,8 +64,8 @@ public class AbstractItem implements Comparable<AbstractItem>{
         return isTodo;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDetails(String details) {
