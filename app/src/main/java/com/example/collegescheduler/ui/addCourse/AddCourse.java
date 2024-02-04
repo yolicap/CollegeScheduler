@@ -237,5 +237,4 @@ public class AddCourse extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AddCourseViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }

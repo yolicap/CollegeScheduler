@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
+import com.example.collegescheduler.ui.addAssignment.AddAssignmentViewModel;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 
@@ -96,5 +97,4 @@ public class add_assignment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
