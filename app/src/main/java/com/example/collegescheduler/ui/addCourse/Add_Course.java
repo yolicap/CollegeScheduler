@@ -15,14 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.MainActivity;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
+import com.example.collegescheduler.item.CourseItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -194,4 +197,19 @@ public class Add_Course extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    public void submitButtonHandler(View view) {
+        final EditText courseNameEditText = (EditText) view.findViewById(R.id.course_name);
+        final EditText profNameEditText = (EditText) view.findViewById(R.id.prof_name);
+        final EditText locationNameEditText = (EditText) view.findViewById(R.id.location_name);
+
+//        final CourseItem course = DataBase.getCourseByName(
+//                courseNameEditText.getText().toString()
+//        );
+        final String courseName = courseNameEditText.getText().toString();
+        final String profName = profNameEditText.getText().toString();
+        final String locationName = locationNameEditText.getText().toString();
+
+        final CourseItem course = new CourseItem(courseName, "");
+        DataBase.addCourse(course);
+    }
 }
