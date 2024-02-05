@@ -118,8 +118,7 @@ public class add_exam extends Fragment {
                 int month = cldr.get(Calendar.MONTH);
                 int year = cldr.get(Calendar.YEAR);
                 // date picker dialog
-                picker = new DatePickerDialog(binding.pickExamDate.getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
+                picker = new DatePickerDialog(binding.pickExamDate.getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);

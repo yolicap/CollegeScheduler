@@ -107,7 +107,7 @@ public class Add_Course extends Fragment {
         // assign variable
         textView = binding.courseDays;
 
-        // initialize selected language array
+        // initialize selected day array
         selectedDays = new boolean[daysArray.length];
 
         textView.setOnClickListener(new View.OnClickListener() {
@@ -129,13 +129,13 @@ public class Add_Course extends Fragment {
                         // check condition
                         if (b) {
                             // when checkbox selected
-                            // Add position  in lang list
+                            // Add position  in day list
                             daysList.add(i);
                             // Sort array list
                             Collections.sort(daysList);
                         } else {
                             // when checkbox unselected
-                            // Remove position from langList
+                            // Remove position from dayList
                             daysList.remove(Integer.valueOf(i));
                         }
                     }
@@ -154,7 +154,7 @@ public class Add_Course extends Fragment {
                             // check condition
                             if (j != daysList.size() - 1) {
                                 // When j value  not equal
-                                // to lang list size - 1
+                                // to day list size - 1
                                 // add comma
                                 stringBuilder.append(", ");
                             }
