@@ -67,7 +67,7 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         recyclerView.setAdapter(itemListAdapter);
-        updateList(ItemContent.ITEMS);
+//        updateList(ItemContent.ITEMS);
 
         /* Spinner */
         Spinner spinner = (Spinner) view.findViewById(R.id.item_type_spinner);
@@ -83,7 +83,6 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
-
         return view;
     }
 
@@ -94,19 +93,17 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
         // TODO : create enum in item package
         switch( position ) {
             case 0: ;
-                // need to get all
-                updateList(DataBase.getAssignmentsList());
-                break;
-            case 1 :
-                updateList(DataBase.getAssignmentsList());
-                break;
-            case 2 :
-                updateList(DataBase.getCoursesList());
-                break;
-            case 3 :
                 updateList(DataBase.getExamsList());
                 break;
+            case 1 :
+                updateList(DataBase.getCoursesList());
+                break;
+            case 2 :
+                updateList(DataBase.getAssignmentsList());
+                break;
+            case 3 :
             default:
+                // TODO : set to all
                 updateList(new ArrayList<AbstractItem>());
         }
     }
@@ -118,6 +115,11 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void updateList(List<? extends AbstractItem> newList){
-        itemListAdapter.submitList(new ArrayList<AbstractItem>(newList));
+        ArrayList<AbstractItem> list = new ArrayList<AbstractItem>(newList);
+        for (AbstractItem o : list){
+            System.out.println("hello!");
+            System.out.println(o.getName());
+        }
+        itemListAdapter.submitList(list);
     }
 }

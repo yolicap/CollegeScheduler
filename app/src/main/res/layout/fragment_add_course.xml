@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addCourse.Add_Course">
+    tools:context=".ui.addCourse.AddCourse">
 
 
     <Button
-        android:id="@+id/backButton1"
+        android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -32,8 +32,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton1" />
+        app:layout_constraintStart_toStartOf="parent" />
+<!--        app:layout_constraintTop_toBottomOf="@+id/backButton1" />-->
 
     <EditText
         android:id="@+id/course_name"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/course_name" />
 
     <TextView
-        android:id="@+id/SelectedCourseTime"
+        android:id="@+id/selectedCourseTime"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_above="@id/pickCourseTime"
@@ -74,6 +74,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SelectedCourseTime" />
+        app:layout_constraintTop_toBottomOf="@+id/selectedCourseTime" />
 
     <TextView
         android:id="@+id/course_days"
@@ -128,7 +129,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_name"
-        app:layout_constraintVertical_bias="0.347" />
+        app:layout_constraintVertical_bias="0.347"
+        android:focusable="true" />
 
     <!--android:onClick="submitbuttonHandler"-->
 
