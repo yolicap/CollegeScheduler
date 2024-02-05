@@ -3,7 +3,6 @@ package com.example.collegescheduler.item;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,12 +19,10 @@ public class CourseItem extends AbstractItem {
     private List<ExamItem> exams;
     public CourseItem(UUID id, String content, String details) {
         super(id, content, details);
-        this.assignments = new ArrayList<>();
     }
 
     public CourseItem(String courseName, String content) {
         super(courseName, content);
-        this.assignments = new ArrayList<>();
     }
 
     public LocalDateTime getNextMeeting(){
@@ -96,6 +93,4 @@ public class CourseItem extends AbstractItem {
     public void setExams(List<ExamItem> exams) {
         this.exams = exams;
     }
-
-    public void addAssignment(AssignmentItem assignmentItem){ this.assignments.add(assignmentItem);}
 }
