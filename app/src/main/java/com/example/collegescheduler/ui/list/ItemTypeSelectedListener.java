@@ -23,14 +23,13 @@ public class ItemTypeSelectedListener implements AdapterView.OnItemSelectedListe
         // TODO : create ViewUpdater to update views when global lists are updated
         // TODO : create enum in item package
         switch (position) {
-            case 0:
-                ;
+            case 2:
                 updateList(DataBase.getExamsList());
                 break;
-            case 2:
+            case 1:
                 updateList(DataBase.getAssignmentsList());
                 break;
-            case 1:
+            case 0:
             default:
                 updateList(DataBase.getCoursesList());
         }

@@ -249,7 +249,7 @@ public class AddCourse extends Fragment {
                         );
 
                         final LocalTime time = LocalTime.parse(
-                                selectTimeTextView.getText()
+                                selectTimeTextView.getText().toString().equals("Course Time") ? "00:00" : selectTimeTextView.getText()
                         );
 
                         if (courseName.isEmpty() ||
