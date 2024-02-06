@@ -15,14 +15,10 @@ import com.example.collegescheduler.item.AbstractItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-
 /**
  * {@link ListAdapter} that can display a {@link AbstractItem}.
  */
 public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.ViewHolder> {
-    private final PublishSubject<ViewHolder> onClickSubject = PublishSubject.create();
     public ItemListAdapter(List<AbstractItem> items) {
         super(AbstractItem.DIFF_CALLBACK);
         submitList(items);
