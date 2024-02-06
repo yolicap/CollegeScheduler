@@ -31,7 +31,7 @@ public class ItemContent {
     static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createAbstractItem(i));
+//            addItem(createAbstractItem(i));
         }
     }
 
@@ -40,9 +40,9 @@ public class ItemContent {
         ITEM_MAP.put(item.getId(), item);
     }
 
-    private static AbstractItem createAbstractItem(int position) {
-        return new AbstractItem("Item " + position, makeDetails(position));
-    }
+//    private static AbstractItem createAbstractItem(int position) {
+//        return new AbstractItem("Item " + position, makeDetails(position));
+//    }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();

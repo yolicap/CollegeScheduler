@@ -61,6 +61,10 @@
             android:name="com.example.collegescheduler.ui.addCourse.AddCourse"
             android:label="fragment_add_course"
             tools:layout="@layout/fragment_add_course" >
+            <argument
+                android:name="item_uuid"
+                app:argType="string"
+                android:defaultValue="" />
             <action
                 android:id="@+id/action_navigation_add_course_to_navigation_dashboard"
                 app:destination="@id/navigation_dashboard" />
@@ -70,6 +74,10 @@
             android:name="com.example.collegescheduler.ui.addExam.AddExam"
             android:label="fragment_add_exam"
             tools:layout="@layout/fragment_add_exam" >
+            <argument
+                android:name="item_uuid"
+                app:argType="string"
+                android:defaultValue="" />
             <action
                 android:id="@+id/action_navigation_add_exam_to_navigation_dashboard"
                 app:destination="@id/navigation_dashboard" />
@@ -79,6 +87,10 @@
             android:name="com.example.collegescheduler.ui.addAssignment.AddAssignment"
             android:label="fragment_add_assignment"
             tools:layout="@layout/fragment_add_assignment" >
+            <argument
+                android:name="item_uuid"
+                app:argType="string"
+                android:defaultValue="" />
             <action
                 android:id="@+id/action_navigation_add_assignment_to_navigation_dashboard"
                 app:destination="@id/navigation_dashboard" />

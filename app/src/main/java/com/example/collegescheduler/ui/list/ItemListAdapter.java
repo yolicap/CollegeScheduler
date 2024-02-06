@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,17 +48,7 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
         holder.mItem = getItem(position);
 //        holder.mIdView.setText(getItem(position).getId());
         holder.mContentView.setText(getItem(position).getName());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Look at me im mr meeseeks!");
-
-                // View needs to be that of the id/navigation_list
-                // https://developer.android.com/reference/androidx/navigation/Navigation#findNavController(android.view.View)
-                Navigation.findNavController(v).navigate(R.id.edit_course);
-            }
-        });
+        holder.itemView.setOnClickListener(new ItemOnClickListener(holder.mItem));
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

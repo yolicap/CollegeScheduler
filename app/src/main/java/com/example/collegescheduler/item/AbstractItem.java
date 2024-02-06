@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class AbstractItem implements Comparable<AbstractItem>{
+public abstract class AbstractItem implements Comparable<AbstractItem>, EditableItemInterface {
 
     private final UUID id;
     private String name;
     private String details;
-
     private LocalDateTime comparableTime;
     private boolean isTodo;
 
