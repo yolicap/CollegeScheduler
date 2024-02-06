@@ -23,7 +23,17 @@
         android:id="@+id/navigation_list"
         android:name="com.example.collegescheduler.ui.list.ItemFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_item_list" />
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/edit_assignment"
+            app:destination="@id/navigation_add_course" />
+        <action
+            android:id="@+id/edit_course"
+            app:destination="@id/navigation_add_course" />
+        <action
+            android:id="@+id/edit_exam"
+            app:destination="@id/navigation_add_course" />
+    </fragment>
 
 <!--    read forum for more information about nested graph issue-->
 <!--    https://issuetracker.google.com/issues/154532067?pli=1-->

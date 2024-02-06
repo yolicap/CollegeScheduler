@@ -1,6 +1,8 @@
 package com.example.collegescheduler.ui.list;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentItemBinding;
 import com.example.collegescheduler.item.AbstractItem;
+import com.example.collegescheduler.ui.addCourse.AddCourse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +52,10 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
             @Override
             public void onClick(View v) {
                 System.out.println("Look at me im mr meeseeks!");
-                //
+
+                // View needs to be that of the id/navigation_list
+                // https://developer.android.com/reference/androidx/navigation/Navigation#findNavController(android.view.View)
+                Navigation.findNavController(v).navigate(R.id.edit_course);
             }
         });
     }
