@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentItemBinding;
 import com.example.collegescheduler.item.AbstractItem;
+import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
 import com.example.collegescheduler.ui.list.ItemListAdapter;
@@ -47,7 +48,17 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
     public void onBindViewHolder(final ItemListAdapter.ViewHolder holder, int position) {
         holder.mItem = getItem(position);
 //        holder.mIdView.setText(getItem(position).getId());
-        holder.mContentView.setText(getItem(position).getName());
+        AbstractItem item = getItem(position);
+        String type = "";
+        if (item instanceof ExamItem) {
+            type = "Exam: ";
+        } else if (item instanceof AssignmentItem){
+            type = "Assignment: ";
+        } else {
+            type = "ERROR. Search CustomAdapter for this error to debug. ";
+        }
+        type += getItem(position).getName();
+        holder.mContentView.setText(type);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

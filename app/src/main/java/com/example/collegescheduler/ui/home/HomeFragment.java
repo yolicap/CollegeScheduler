@@ -19,6 +19,7 @@ import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
 import com.example.collegescheduler.item.AbstractItem;
+import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
 import com.example.collegescheduler.ui.list.ItemFragment;
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context,
-                R.array.item_types,
+                R.array.home_item_types,
                 android.R.layout.simple_spinner_item
         );
         // Specify the layout to use when the list of choices appears.
@@ -88,16 +89,19 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // use position to show items in list
         // TODO : create ViewUpdater to update views when global lists are updated
         // TODO : create enum in item package
-        switch( position ) {
-            case 0: ;
+        List<AbstractItem> newList = new ArrayList<AbstractItem>();
+        newList.addAll(DataBase.getAssignmentsList());
+        newList.addAll(DataBase.getExamsList());
+        switch (position) {
+            case 2:
                 updateList(DataBase.getExamsList());
                 break;
-            case 2 :
+            case 1:
                 updateList(DataBase.getAssignmentsList());
                 break;
-            case 1 :
+            case 0:
             default:
-                updateList(DataBase.getCoursesList());
+                updateList(newList);
         }
     }
 
