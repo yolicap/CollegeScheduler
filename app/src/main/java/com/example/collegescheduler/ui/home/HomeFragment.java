@@ -19,6 +19,7 @@ import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
 import com.example.collegescheduler.item.AbstractItem;
+import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
 import com.example.collegescheduler.ui.list.ItemFragment;
@@ -88,19 +89,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // use position to show items in list
         // TODO : create ViewUpdater to update views when global lists are updated
         // TODO : create enum in item package
-        switch( position ) {
-            case 0: ;
-                updateList(DataBase.getExamsList());
-                break;
-            case 2 :
-                updateList(DataBase.getAssignmentsList());
-                break;
-            case 1 :
-            default:
-                updateList(DataBase.getCoursesList());
-        }
+        List<AbstractItem> newList = new ArrayList<AbstractItem>();
+        newList.addAll(DataBase.getAssignmentsList());
+        newList.addAll(DataBase.getExamsList());
+        updateList(newList);
     }
-
+5
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO : use global items list
