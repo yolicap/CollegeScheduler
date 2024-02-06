@@ -10,6 +10,7 @@
         <item>Exams</item>
     </string-array>
     <string-array name="home_item_types">
+        <item>All</item>
         <item>Assignments</item>
         <item>Exams</item>
     </string-array>

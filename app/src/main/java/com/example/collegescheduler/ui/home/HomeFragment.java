@@ -92,7 +92,17 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         List<AbstractItem> newList = new ArrayList<AbstractItem>();
         newList.addAll(DataBase.getAssignmentsList());
         newList.addAll(DataBase.getExamsList());
-        updateList(newList);
+        switch (position) {
+            case 2:
+                updateList(DataBase.getExamsList());
+                break;
+            case 1:
+                updateList(DataBase.getAssignmentsList());
+                break;
+            case 0:
+            default:
+                updateList(newList);
+        }
     }
 
     @Override
