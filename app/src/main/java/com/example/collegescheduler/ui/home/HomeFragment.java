@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         newList.addAll(DataBase.getExamsList());
         updateList(newList);
     }
-5
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO : use global items list
