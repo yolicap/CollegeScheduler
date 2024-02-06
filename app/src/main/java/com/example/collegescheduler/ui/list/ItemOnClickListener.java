@@ -17,9 +17,10 @@ public class ItemOnClickListener implements View.OnClickListener {
     }
     @Override
     public void onClick(View v) {
-        System.out.println("Look at me im mr meeseeks!");
+        System.out.println("Item clicked!");
         Bundle argBundle = new Bundle();
         argBundle.putString("item_uuid", this.item.getId().toString());
+        System.out.println("id : " + this.item.getId().toString());
 
         // View needs to be that of the id/navigation_list
         // https://developer.android.com/reference/androidx/navigation/Navigation#findNavController(android.view.View)

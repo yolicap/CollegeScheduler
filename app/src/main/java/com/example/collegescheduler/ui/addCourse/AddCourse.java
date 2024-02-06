@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
+import com.example.collegescheduler.item.AbstractItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.ui.addCourse.AddCourseViewModel;
 
@@ -39,6 +40,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class AddCourse extends Fragment {
 
@@ -48,10 +50,13 @@ public class AddCourse extends Fragment {
     private Button pickTimeBtn;
     private TextView selectedTimeTV;
 
+    private CourseItem item = null;
+
     TextView textView;
     boolean[] selectedDays;
     ArrayList<Integer> daysList = new ArrayList<>();
     String[] daysArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+
 
 
     public static AddCourse newInstance() {
@@ -64,6 +69,15 @@ public class AddCourse extends Fragment {
 
         binding = FragmentAddCourseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        Bundle args = getArguments();
+
+        if (args != null) {
+            if (!args.getString("item_uuid").isEmpty()) {
+                item = DataBase.getCourse(
+                        UUID.fromString(args.getString("item_uuid"))
+                );
+            }
+        }
 
         return root;
     }
@@ -282,6 +296,41 @@ public class AddCourse extends Fragment {
                 dialog.show();
             }
         });
+
+
+        // Yes this is bad coding practice. No we don't have time
+        final EditText courseNameEditText = (EditText) view.getRootView().findViewById(R.id.course_name);
+        final EditText profNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.prof_name);
+        final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.location_name);
+        final TextView selectTimeTextView = (TextView) view.getRootView().findViewById(R.id.selectedCourseTime);
+        final TextView courseDaysTextView = (TextView) view.getRootView().findViewById(R.id.course_days);
+
+        if (item != null) {
+            // Set course name
+            courseNameEditText.setText(
+                    item.getName() == null ? "Course Name" : item.getName()
+            );
+            // Set professor name
+            profNameEditText.setText(
+                    item.getProfessor() == null ? "Professor Name" : item.getProfessor()
+            );
+            // Set selected days
+            String displayDays = item.getDayOfWeek().isEmpty() ? "Select Days" : "";
+            for (DayOfWeek dayOfWeek : item.getDayOfWeek()){
+                displayDays += dayOfWeek.toString().toLowerCase();
+                displayDays += ", ";
+            }
+            courseDaysTextView.setText(displayDays);
+            // Set location
+            locationNameEditText.setText(
+                    item.getBuilding() == null ? "Location" : item.getBuilding()
+            );
+            // Set time
+            selectTimeTextView.setText(
+                    item.getMeetingTimes() == null ? "Course Time" : item.getMeetingTimes().toString()
+            );
+        }
+
     }
 
     @Override
