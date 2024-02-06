@@ -95,16 +95,12 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
             case 0: ;
                 updateList(DataBase.getExamsList());
                 break;
-            case 1 :
-                updateList(DataBase.getCoursesList());
-                break;
             case 2 :
                 updateList(DataBase.getAssignmentsList());
                 break;
-            case 3 :
+            case 1 :
             default:
-                // TODO : set to all
-                updateList(new ArrayList<AbstractItem>());
+                updateList(DataBase.getCoursesList());
         }
     }
 
@@ -116,10 +112,7 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
 
     private void updateList(List<? extends AbstractItem> newList){
         ArrayList<AbstractItem> list = new ArrayList<AbstractItem>(newList);
-        for (AbstractItem o : list){
-            System.out.println("hello!");
-            System.out.println(o.getName());
-        }
+        list.forEach(item -> System.out.println(item.getName()));
         itemListAdapter.submitList(list);
     }
 }
