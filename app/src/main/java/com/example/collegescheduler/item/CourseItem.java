@@ -46,7 +46,7 @@ public class CourseItem extends AbstractItem {
     }
 
     public void setDaysOfWeek(List<DayOfWeek> dayOfWeek) {
-        this.daysOfWeek = daysOfWeek;
+        this.daysOfWeek = dayOfWeek;
     }
 
     public String getProfessor() {

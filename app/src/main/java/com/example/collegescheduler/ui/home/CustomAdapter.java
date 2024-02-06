@@ -1,5 +1,6 @@
 package com.example.collegescheduler.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_list_view_test, null);
+        // view = inflater.inflate(R.layout.activity_list_view_test, null);
         TextView line = view.findViewById(R.id.textViewID);
         if (i < courses.length) {
             line.setText(courses[i].toString());

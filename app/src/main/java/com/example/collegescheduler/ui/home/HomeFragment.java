@@ -23,15 +23,20 @@ public class HomeFragment extends Fragment {
 
     ListView simpleList;
 
-    int courseSize = DataBase.getCourseDict().size();
-    int examSize = DataBase.getExamDict().size();
-    CourseItem[] courses = new CourseItem[courseSize];
-    ExamItem[] exams = new ExamItem[examSize];
+    int courseSize;
+    int examSize;
+    CourseItem[] courses;
+    ExamItem[] exams;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // create binding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        courseSize = DataBase.getCourseDict().size();
+        examSize = DataBase.getExamDict().size();
+        courses = new CourseItem[courseSize];
+        exams = new ExamItem[examSize];
 
         // populate courses[] and exams[]
         Enumeration<CourseItem> courseEnu = DataBase.getCourseDict().elements();

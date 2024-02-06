@@ -268,6 +268,7 @@ public class AddCourse extends Fragment {
                         DataBase.addCourse(course);
 
                         // TODO : exit page
+                        System.out.println(DataBase.getCoursesList());
                         System.out.println("Course added!");
                     }
                 }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
