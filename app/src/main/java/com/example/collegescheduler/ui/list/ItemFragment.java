@@ -1,6 +1,7 @@
 package com.example.collegescheduler.ui.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  */
-public class ItemFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class ItemFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private final ItemListAdapter itemListAdapter =
             new ItemListAdapter();
@@ -72,7 +73,8 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
         /* Spinner */
         Spinner spinner = (Spinner) view.findViewById(R.id.item_type_spinner);
         // TODO : (refactor) extract class instead of extending this one
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new ItemTypeSelectedListener(itemListAdapter));
+
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context,
@@ -83,36 +85,20 @@ public class ItemFragment extends Fragment implements AdapterView.OnItemSelected
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
+
+//        recyclerView.onItemClick(){}
+//        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1,
+//                                    int arg2, long arg3) {
+//                Intent i = new Intent(notesHomeActivity.this, SecondActivity.class);
+//                i.putExtra("noteObj", lv.getItemAtPosition(arg2));
+//                startActivity(i);
+//            }
+//        });
+
         return view;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // use position to show items in list
-        // TODO : create ViewUpdater to update views when global lists are updated
-        // TODO : create enum in item package
-        switch( position ) {
-            case 0: ;
-                updateList(DataBase.getExamsList());
-                break;
-            case 2 :
-                updateList(DataBase.getAssignmentsList());
-                break;
-            case 1 :
-            default:
-                updateList(DataBase.getCoursesList());
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // TODO : use global items list
-        updateList(new ArrayList<AbstractItem>());
-    }
-
-    private void updateList(List<? extends AbstractItem> newList){
-        ArrayList<AbstractItem> list = new ArrayList<AbstractItem>(newList);
-        list.forEach(item -> System.out.println(item.getName()));
-        itemListAdapter.submitList(list);
-    }
 }
+
