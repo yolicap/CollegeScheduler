@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context,
-                R.array.item_types,
+                R.array.home_item_types,
                 android.R.layout.simple_spinner_item
         );
         // Specify the layout to use when the list of choices appears.
