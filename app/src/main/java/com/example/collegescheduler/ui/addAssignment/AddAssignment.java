@@ -32,11 +32,14 @@ import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.UUID;
 
 public class AddAssignment extends Fragment {
 
     private AddAssignmentViewModel mViewModel;
     private FragmentAddAssignmentBinding binding;
+
+    private AssignmentItem item = null;
 
     DatePickerDialog picker;
     EditText eText;
@@ -50,14 +53,17 @@ public class AddAssignment extends Fragment {
 
         binding = FragmentAddAssignmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        Bundle args = getArguments();
 
-        //setContentView(R.layout.fragment_add_assignment);
-
-        //eText.setInputType(InputType.TYPE_NULL);
+        if (args != null) {
+            if (!args.getString("item_uuid").isEmpty()) {
+                item = DataBase.getAssignment(
+                        UUID.fromString(args.getString("item_uuid"))
+                );
+            }
+        }
 
         return root;
-
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

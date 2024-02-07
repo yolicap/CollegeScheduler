@@ -274,6 +274,8 @@ public class AddCourse extends Fragment {
                                 selectTimeTextView.getText().toString().equals("Course Time") ? "00:00" : selectTimeTextView.getText()
                         );
 
+
+
                         // TODO : builder would be better here
                         final CourseItem course = new CourseItem(courseName, "");
                         course.setProfessor(profName);

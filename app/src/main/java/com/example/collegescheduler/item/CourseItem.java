@@ -24,11 +24,13 @@ public class CourseItem extends AbstractItem {
     public CourseItem(UUID id, String content, String details) {
         super(id, content, details);
         this.assignments = new ArrayList<>();
+        this.exams = new ArrayList<>();
     }
 
     public CourseItem(String courseName, String content) {
         super(courseName, content);
         this.assignments = new ArrayList<>();
+        this.exams = new ArrayList<>();
     }
 
     public LocalDateTime getNextMeeting(){
