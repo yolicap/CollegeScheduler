@@ -40,7 +40,7 @@ public class AddAssignment extends Fragment {
 
     DatePickerDialog picker;
     EditText eText;
-    TextView tvw;
+    private TextView selectedDueDate;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,9 +52,8 @@ public class AddAssignment extends Fragment {
         View root = binding.getRoot();
 
         //setContentView(R.layout.fragment_add_assignment);
-        tvw= binding.dateView;
-        eText= binding.editTextDate;
-        eText.setInputType(InputType.TYPE_NULL);
+
+        //eText.setInputType(InputType.TYPE_NULL);
 
         return root;
 
@@ -72,6 +71,8 @@ public class AddAssignment extends Fragment {
             }
         });
 
+        selectedDueDate = binding.selectedDueDate;
+
         binding.pickAssignmentDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +85,7 @@ public class AddAssignment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText(
+                                selectedDueDate.setText(
                                         String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)
                                 );
                             }
@@ -108,11 +109,11 @@ public class AddAssignment extends Fragment {
                         // add submit function
                         final EditText assignmentNameEditText = (EditText) view.getRootView().findViewById(R.id.assignment_name);
                         final EditText assignmentCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.assignment_course_name);
-                        final EditText dateEditText = (EditText) view.getRootView().findViewById(R.id.editTextDate);
+                        final TextView selectedDueDateTextView = (TextView) view.getRootView().findViewById(R.id.selectedDueDate);
 
                         if (assignmentNameEditText == null ||
                                 assignmentCourseNameEditText == null ||
-                                dateEditText == null) {
+                                selectedDueDateTextView == null) {
                             System.out.println("Could not find input fields.");
                             return;
                         }
@@ -120,19 +121,20 @@ public class AddAssignment extends Fragment {
                         // required fields
                         final String assignmentName = assignmentNameEditText.getText().toString();
 
+                        if (assignmentName.isEmpty()) {
+                            System.out.println("Required fields empty");
+                            dialog.dismiss();
+                            return;
+                        }
+
                         // optional fields
                         // needs to be formatted properly ?
                         final LocalDate date = LocalDate.parse(
-                                dateEditText.getText().toString().isEmpty() ? "00/00/0000": dateEditText.getText()
+                                selectedDueDateTextView.getText().toString().isEmpty() ? "00/00/0000": selectedDueDateTextView.getText()
                         );
                         final CourseItem course = DataBase.getCourseByName(
                                 assignmentCourseNameEditText.getText().toString()
                         );
-
-                        if (assignmentName.isEmpty()) {
-                            System.out.println("Required fields empty");
-                            return;
-                        }
 
                         // TODO : builder would be better here
                         final AssignmentItem assignment = new AssignmentItem(assignmentName, "");

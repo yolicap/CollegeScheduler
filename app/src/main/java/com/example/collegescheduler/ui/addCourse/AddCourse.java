@@ -254,6 +254,14 @@ public class AddCourse extends Fragment {
                         final String profName = profNameEditText.getText().toString();
                         final String locationName = locationNameEditText.getText().toString();
 
+                        if (courseName.isEmpty() ||
+                                profName.isEmpty() ||
+                                locationName.isEmpty()) {
+                            System.out.println("Required fields empty");
+                            dialog.dismiss();
+                            return;
+                        }
+
                         // optional fields
                         final List<DayOfWeek> daysOfWeek = new ArrayList<DayOfWeek>();
                         Arrays.stream(
@@ -265,13 +273,6 @@ public class AddCourse extends Fragment {
                         final LocalTime time = LocalTime.parse(
                                 selectTimeTextView.getText().toString().equals("Course Time") ? "00:00" : selectTimeTextView.getText()
                         );
-
-                        if (courseName.isEmpty() ||
-                                profName.isEmpty() ||
-                                locationName.isEmpty()) {
-                            System.out.println("Required fields empty");
-                            return;
-                        }
 
                         // TODO : builder would be better here
                         final CourseItem course = new CourseItem(courseName, "");

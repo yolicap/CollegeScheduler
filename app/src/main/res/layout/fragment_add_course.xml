@@ -7,11 +7,13 @@
     tools:context=".ui.addCourse.AddCourse">
 
 
+    <!--        app:layout_constraintTop_toBottomOf="@+id/backButton1" />-->
+
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="#D500F9"
         android:onClick="backButtonHandler"
         android:text="@string/back"
@@ -25,21 +27,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="@string/add_course"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-<!--        app:layout_constraintTop_toBottomOf="@+id/backButton1" />-->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button" />
 
     <EditText
         android:id="@+id/course_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="@string/course_name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,10 +85,10 @@
         android:id="@+id/pickCourseTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:text="@string/select_course_time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectedCourseTime" />
 
@@ -96,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:background="@android:drawable/editbox_background"
         android:drawableRight="@android:drawable/arrow_down_float"
         android:drawablePadding="16dp"

@@ -25,10 +25,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddExamBinding;
+import com.example.collegescheduler.item.AssignmentItem;
+import com.example.collegescheduler.item.CourseItem;
+import com.example.collegescheduler.item.ExamItem;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 public class AddExam extends Fragment {
@@ -43,6 +49,8 @@ public class AddExam extends Fragment {
 
     private Button pickTimeBtn;
     private TextView selectedTimeTV;
+    private TextView selectedExamDate;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -53,14 +61,10 @@ public class AddExam extends Fragment {
         binding = FragmentAddExamBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //setContentView(R.layout.fragment_add_assignment);
-        tvw= binding.dateViewExam;
-        eText= binding.editTextExamDate;
-        eText.setInputType(InputType.TYPE_NULL);
 
         // on below line we are initializing our variables.
         pickTimeBtn = binding.pickTime;
-        selectedTimeTV = binding.SelectedTime;
+        selectedTimeTV = binding.SelectedExamTime;
 
         // on below line we are adding click
         // listener for our pick date button
@@ -104,9 +108,12 @@ public class AddExam extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(AddExam.this)
-                        .navigate(R.id.action_navigation_add_assignment_to_navigation_dashboard);
+                        .navigate(R.id.action_navigation_add_exam_to_navigation_dashboard);
             }
         });
+
+        selectedExamDate = binding.selectedExamDate;
+
 
         binding.pickExamDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,8 +126,9 @@ public class AddExam extends Fragment {
                 picker = new DatePickerDialog(binding.pickExamDate.getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
+                                selectedExamDate.setText(
+                                        String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)
+                                );                            }
                         }, year, month, day);
                 picker.show();
             }
@@ -139,7 +147,57 @@ public class AddExam extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // add submit function
+                        final EditText examNameEditText = (EditText) view.getRootView().findViewById(R.id.exam_name);
+                        final EditText examCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.exam_course_name);
+                        final TextView selectedExamDateTextView = (TextView) view.getRootView().findViewById(R.id.selectedExamDate);
+                        final TextView SelectedExamTimeTextView = (TextView) view.getRootView().findViewById(R.id.SelectedExamTime);
+                        final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.exam_location);
+
+                        if (examNameEditText == null ||
+                                examCourseNameEditText == null ||
+                                selectedExamDateTextView == null ||
+                                SelectedExamTimeTextView == null ||
+                                locationNameEditText == null ) {
+                            System.out.println("Could not find input fields.");
+                        }
+
+                        // required fields
+                        final String examName = examNameEditText.getText().toString();
+
+                        if (examName.isEmpty()) {
+                            System.out.println("Required fields empty");
+                            dialog.dismiss();
+                            return;
+                        }
+
+                        // optional fields
+                        // needs to be formatted properly ?
+                        final LocalDate date = LocalDate.parse(
+                                selectedExamDateTextView.getText().toString().isEmpty() ? "00/00/0000": selectedExamDateTextView.getText()
+                        );
+
+                        final LocalTime time = LocalTime.parse(
+                                SelectedExamTimeTextView.getText().toString().equals("Course Time") ? "00:00" : SelectedExamTimeTextView.getText()
+                        );
+                        final CourseItem course = DataBase.getCourseByName(
+                                examCourseNameEditText.getText().toString()
+                        );
+
+                        final String locationName = locationNameEditText.getText().toString();
+
+                        // TODO : builder would be better here
+                        final ExamItem exam = new ExamItem(examName, "");
+                        exam.setExamDate(date);
+                        exam.setBuilding(locationName);
+                        exam.setTime(time);
+                        if (course != null) {
+                            exam.setCourse(course);
+                            course.addExam(exam);
+                        }
+                        DataBase.addExam(exam);
+
+                        // TODO : exit page
+                        System.out.println("Exam added!");
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

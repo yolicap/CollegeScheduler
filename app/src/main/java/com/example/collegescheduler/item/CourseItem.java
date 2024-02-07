@@ -102,6 +102,8 @@ public class CourseItem extends AbstractItem {
 
     public void addAssignment(AssignmentItem assignmentItem){ this.assignments.add(assignmentItem);}
 
+    public void addExam(ExamItem examItem){ this.exams.add(examItem);}
+
     @Override
     public int getEditAction() {
         return EDIT_ACTION;
