@@ -27,6 +27,7 @@ import android.widget.TimePicker;
 
 import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
+import com.example.collegescheduler.databinding.FragmentAddAssignmentBinding;
 import com.example.collegescheduler.databinding.FragmentAddExamBinding;
 import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
@@ -36,6 +37,7 @@ import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.UUID;
 
 public class AddExam extends Fragment {
 
@@ -46,6 +48,8 @@ public class AddExam extends Fragment {
     DatePickerDialog picker;
     EditText eText;
     TextView tvw;
+
+    private ExamItem item = null;
 
     private Button pickTimeBtn;
     private TextView selectedTimeTV;
@@ -60,7 +64,15 @@ public class AddExam extends Fragment {
 
         binding = FragmentAddExamBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        Bundle args = getArguments();
 
+        if (args != null) {
+            if (!args.getString("item_uuid").isEmpty()) {
+                item = DataBase.getExam(
+                        UUID.fromString(args.getString("item_uuid"))
+                );
+            }
+        }
 
         // on below line we are initializing our variables.
         pickTimeBtn = binding.pickTime;
@@ -153,6 +165,31 @@ public class AddExam extends Fragment {
                         final TextView SelectedExamTimeTextView = (TextView) view.getRootView().findViewById(R.id.SelectedExamTime);
                         final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.exam_location);
 
+                        if (item != null) {
+                            // Set exam name
+                            examNameEditText.setText(
+                                    item.getName() == null ? "Exam Name" : item.getName()
+                            );
+                            // Set course name
+                            examCourseNameEditText.setText(
+                                    item.getCourse() == null ? "Course Name" : item.getCourse().getName()
+                            );
+                            // Set due date
+                            selectedExamDateTextView.setText(
+                                    item.getExamDate() == null ? "Course Time" : item.getExamDate().toString()
+                            );
+                            // Set location
+                            locationNameEditText.setText(
+                                    item.getBuilding() == null ? "Location" : item.getBuilding()
+                            );
+                            // Set exam time
+                            SelectedExamTimeTextView.setText(
+                                    item.getTime() == null ? "Course Time" : item.getTime().toString()
+                            );
+
+                            return;
+                        }
+
                         if (examNameEditText == null ||
                                 examCourseNameEditText == null ||
                                 selectedExamDateTextView == null ||
@@ -211,6 +248,37 @@ public class AddExam extends Fragment {
                 dialog.show();
             }
         });
+
+        final EditText examNameEditText = (EditText) view.getRootView().findViewById(R.id.exam_name);
+        final EditText examCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.exam_course_name);
+        final TextView selectedExamDateTextView = (TextView) view.getRootView().findViewById(R.id.selectedExamDate);
+        final TextView SelectedExamTimeTextView = (TextView) view.getRootView().findViewById(R.id.SelectedExamTime);
+        final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.exam_location);
+
+        if (item != null) {
+            // Set exam name
+            examNameEditText.setText(
+                    item.getName() == null ? "Exam Name" : item.getName()
+            );
+            // Set course name
+            examCourseNameEditText.setText(
+                    item.getCourse() == null ? "Course Name" : item.getCourse().getName()
+            );
+            // Set due date
+            selectedExamDateTextView.setText(
+                    item.getExamDate() == null ? "Course Time" : item.getExamDate().toString()
+            );
+            // Set location
+            locationNameEditText.setText(
+                    item.getBuilding() == null ? "Location" : item.getBuilding()
+            );
+            // Set exam time
+            SelectedExamTimeTextView.setText(
+                    item.getTime() == null ? "Course Time" : item.getTime().toString()
+            );
+        }
+
+
     }
 
     @Override

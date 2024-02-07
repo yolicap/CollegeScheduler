@@ -30,6 +30,7 @@ import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.UUID;
@@ -48,8 +49,10 @@ public class AddAssignment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        /*
         DashboardViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
+        */
 
         binding = FragmentAddAssignmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -117,6 +120,23 @@ public class AddAssignment extends Fragment {
                         final EditText assignmentCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.assignment_course_name);
                         final TextView selectedDueDateTextView = (TextView) view.getRootView().findViewById(R.id.selectedDueDate);
 
+                        if (item != null) {
+                            // Set assignment name
+                            assignmentNameEditText.setText(
+                                    item.getName() == null ? "Assignment Name" : item.getName()
+                            );
+                            // Set course name
+                            assignmentCourseNameEditText.setText(
+                                    item.getCourse() == null ? "Course Name" : item.getCourse().getName()
+                            );
+                            // Set due date
+                            selectedDueDateTextView.setText(
+                                    item.getDueDate() == null ? "Course Time" : item.getDueDate().toString()
+                            );
+
+                            return;
+                        }
+
                         if (assignmentNameEditText == null ||
                                 assignmentCourseNameEditText == null ||
                                 selectedDueDateTextView == null) {
@@ -166,6 +186,29 @@ public class AddAssignment extends Fragment {
                 dialog.show();
             }
         });
+
+        // Yes this is bad coding practice. No we don't have time
+
+        final EditText assignmentNameEditText = (EditText) view.getRootView().findViewById(R.id.assignment_name);
+        final EditText assignmentCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.assignment_course_name);
+        final TextView selectedDueDateTextView = (TextView) view.getRootView().findViewById(R.id.selectedDueDate);
+
+        if (item != null) {
+            // Set assignment name
+            assignmentNameEditText.setText(
+                    item.getName() == null ? "Assignment Name" : item.getName()
+            );
+            // Set course name
+            assignmentCourseNameEditText.setText(
+                    item.getCourse() == null ? "Course Name" : item.getCourse().getName()
+            );
+            // Set due date
+            selectedDueDateTextView.setText(
+                    item.getDueDate() == null ? "Course Time" : item.getDueDate().toString()
+            );
+        }
+
+
     }
 
     @Override

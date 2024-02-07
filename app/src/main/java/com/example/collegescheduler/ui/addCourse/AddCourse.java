@@ -237,6 +237,34 @@ public class AddCourse extends Fragment {
                         final TextView selectTimeTextView = (TextView) view.getRootView().findViewById(R.id.selectedCourseTime);
                         final TextView courseDaysTextView = (TextView) view.getRootView().findViewById(R.id.course_days);
 
+                        if (item != null) {
+                            // Set course name
+                            courseNameEditText.setText(
+                                    item.getName() == null ? "Course Name" : item.getName()
+                            );
+                            // Set professor name
+                            profNameEditText.setText(
+                                    item.getProfessor() == null ? "Professor Name" : item.getProfessor()
+                            );
+                            // Set selected days
+                            String displayDays = item.getDayOfWeek().isEmpty() ? "Select Days" : "";
+                            for (DayOfWeek dayOfWeek : item.getDayOfWeek()){
+                                displayDays += dayOfWeek.toString().toLowerCase();
+                                displayDays += ", ";
+                            }
+                            courseDaysTextView.setText(displayDays);
+                            // Set location
+                            locationNameEditText.setText(
+                                    item.getBuilding() == null ? "Location" : item.getBuilding()
+                            );
+                            // Set time
+                            selectTimeTextView.setText(
+                                    item.getMeetingTimes() == null ? "Course Time" : item.getMeetingTimes().toString()
+                            );
+
+                            return;
+                        }
+
                         if (courseNameEditText == null ||
                                 profNameEditText == null ||
                                 locationNameEditText == null ||
@@ -332,6 +360,8 @@ public class AddCourse extends Fragment {
             selectTimeTextView.setText(
                     item.getMeetingTimes() == null ? "Course Time" : item.getMeetingTimes().toString()
             );
+
+            return;
         }
 
     }

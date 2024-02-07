@@ -67,15 +67,15 @@ public class DataBase {
     public static void addAssignment(AssignmentItem assignment){assignmentDict.put(assignment.getId(), assignment);}
 
     // TODO: pass dict reference?
-    public static Dictionary<UUID, AssignmentItem> getAssignmentDict() {
+    public static Hashtable<UUID, AssignmentItem> getAssignmentDict() {
         return assignmentDict;
     }
 
-    public static Dictionary<UUID, CourseItem> getCourseDict() {
+    public static Hashtable<UUID, CourseItem> getCourseDict() {
         return courseDict;
     }
 
-    public static Dictionary<UUID, ExamItem> getExamDict() {
+    public static Hashtable<UUID, ExamItem> getExamDict() {
         return examDict;
     }
 

@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentItemBinding;
 import com.example.collegescheduler.item.AbstractItem;
@@ -49,17 +49,20 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
         holder.mItem = getItem(position);
 //        holder.mIdView.setText(getItem(position).getId());
         holder.mContentView.setText(getItem(position).getName());
-        holder.itemView.setOnClickListener(new ItemOnClickListener(holder.mItem));
+        holder.mEdit.setOnClickListener(new ItemOnClickListener(holder.mItem));
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
+
+        public final Button mEdit;
         public AbstractItem mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
             mIdView = binding.itemNumber;
+            mEdit = binding.edit;
             mContentView = binding.content;
         }
 

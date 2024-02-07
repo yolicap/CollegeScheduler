@@ -25,5 +25,18 @@ public class ItemOnClickListener implements View.OnClickListener {
         // View needs to be that of the id/navigation_list
         // https://developer.android.com/reference/androidx/navigation/Navigation#findNavController(android.view.View)
         Navigation.findNavController(v).navigate(item.getEditAction(), argBundle);
+
+        /*
+        System.out.println(item.getEditAction());
+        if (DataBase.getCourseDict().contains(item.getId())) {
+            Navigation.findNavController(v).navigate("fragment_addPage", argBundle);
+        } else if (DataBase.getAssignmentDict().contains(item.getId())){
+
+        } else if (DataBase.getExamDict().contains(item.getId())) {
+
+        } else {
+            return;
+        }
+         */
     }
 }
