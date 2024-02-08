@@ -80,7 +80,8 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
                         }
 
                         submitList(getCurrentList());
-
+                        Navigation.findNavController(view).navigate(R.id.navigation_list);
+                        
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
