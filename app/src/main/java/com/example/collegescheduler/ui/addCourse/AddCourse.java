@@ -29,6 +29,7 @@ import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
 import com.example.collegescheduler.item.AbstractItem;
 import com.example.collegescheduler.item.CourseItem;
+import com.example.collegescheduler.ui.addAssignment.AddAssignment;
 import com.example.collegescheduler.ui.addCourse.AddCourseViewModel;
 
 import java.lang.reflect.Array;
@@ -90,8 +91,7 @@ public class AddCourse extends Fragment {
 //        binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(AddCourse.this)
-                        .navigate(R.id.action_navigation_add_course_to_navigation_dashboard);
+                NavHostFragment.findNavController(AddCourse.this).popBackStack();
             }
         });
 
@@ -237,34 +237,6 @@ public class AddCourse extends Fragment {
                         final TextView selectTimeTextView = (TextView) view.getRootView().findViewById(R.id.selectedCourseTime);
                         final TextView courseDaysTextView = (TextView) view.getRootView().findViewById(R.id.course_days);
 
-                        if (item != null) {
-                            // Set course name
-                            courseNameEditText.setText(
-                                    item.getName() == null ? "Course Name" : item.getName()
-                            );
-                            // Set professor name
-                            profNameEditText.setText(
-                                    item.getProfessor() == null ? "Professor Name" : item.getProfessor()
-                            );
-                            // Set selected days
-                            String displayDays = item.getDayOfWeek().isEmpty() ? "Select Days" : "";
-                            for (DayOfWeek dayOfWeek : item.getDayOfWeek()){
-                                displayDays += dayOfWeek.toString().toLowerCase();
-                                displayDays += ", ";
-                            }
-                            courseDaysTextView.setText(displayDays);
-                            // Set location
-                            locationNameEditText.setText(
-                                    item.getBuilding() == null ? "Location" : item.getBuilding()
-                            );
-                            // Set time
-                            selectTimeTextView.setText(
-                                    item.getMeetingTimes() == null ? "Course Time" : item.getMeetingTimes().toString()
-                            );
-
-                            return;
-                        }
-
                         if (courseNameEditText == null ||
                                 profNameEditText == null ||
                                 locationNameEditText == null ||
@@ -305,6 +277,20 @@ public class AddCourse extends Fragment {
 
 
                         // TODO : builder would be better here
+                        if (item != null) {
+                            // Set course name
+                            item.setName(courseName);
+                            // Set professor name
+                            item.setProfessor(profName);
+                            // Set selected days
+                            item.setDaysOfWeek(daysOfWeek);
+                            // Set location
+                            item.setBuilding(locationName);
+                            // Set time
+                            item.setMeetingTimes(time);
+                            return;
+                        }
+
                         final CourseItem course = new CourseItem(courseName, "");
                         course.setProfessor(profName);
                         course.setBuilding(locationName);

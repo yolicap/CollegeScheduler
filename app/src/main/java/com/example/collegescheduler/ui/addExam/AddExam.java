@@ -32,6 +32,7 @@ import com.example.collegescheduler.databinding.FragmentAddExamBinding;
 import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
+import com.example.collegescheduler.ui.addAssignment.AddAssignment;
 import com.example.collegescheduler.ui.dashboard.DashboardViewModel;
 
 import java.time.LocalDate;
@@ -119,8 +120,7 @@ public class AddExam extends Fragment {
         binding.backButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(AddExam.this)
-                        .navigate(R.id.action_navigation_add_exam_to_navigation_dashboard);
+                NavHostFragment.findNavController(AddExam.this).popBackStack();
             }
         });
 
@@ -165,31 +165,6 @@ public class AddExam extends Fragment {
                         final TextView SelectedExamTimeTextView = (TextView) view.getRootView().findViewById(R.id.SelectedExamTime);
                         final EditText locationNameEditText = (EditText) view.getRootView().findViewById(R.id.exam_location);
 
-                        if (item != null) {
-                            // Set exam name
-                            examNameEditText.setText(
-                                    item.getName() == null ? "Exam Name" : item.getName()
-                            );
-                            // Set course name
-                            examCourseNameEditText.setText(
-                                    item.getCourse() == null ? "Course Name" : item.getCourse().getName()
-                            );
-                            // Set due date
-                            selectedExamDateTextView.setText(
-                                    item.getExamDate() == null ? "Course Time" : item.getExamDate().toString()
-                            );
-                            // Set location
-                            locationNameEditText.setText(
-                                    item.getBuilding() == null ? "Location" : item.getBuilding()
-                            );
-                            // Set exam time
-                            SelectedExamTimeTextView.setText(
-                                    item.getTime() == null ? "Course Time" : item.getTime().toString()
-                            );
-
-                            return;
-                        }
-
                         if (examNameEditText == null ||
                                 examCourseNameEditText == null ||
                                 selectedExamDateTextView == null ||
@@ -223,6 +198,19 @@ public class AddExam extends Fragment {
                         final String locationName = locationNameEditText.getText().toString();
 
                         // TODO : builder would be better here
+
+                        if (item != null) {
+                            // Set exam name
+                            item.setName(examName);
+                            // Set exam date
+                            item.setExamDate(date);
+                            // Set location
+                            item.setBuilding(locationName);
+                            // Set time
+                            item.setTime(time);
+                            return;
+                        }
+
                         final ExamItem exam = new ExamItem(examName, "");
                         exam.setExamDate(date);
                         exam.setBuilding(locationName);

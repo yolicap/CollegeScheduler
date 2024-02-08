@@ -75,8 +75,7 @@ public class AddAssignment extends Fragment {
         binding.backButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(AddAssignment.this)
-                        .navigate(R.id.action_navigation_add_assignment_to_navigation_dashboard);
+                NavHostFragment.findNavController(AddAssignment.this).popBackStack();
             }
         });
 
@@ -120,23 +119,6 @@ public class AddAssignment extends Fragment {
                         final EditText assignmentCourseNameEditText = (EditText) view.getRootView().getRootView().findViewById(R.id.assignment_course_name);
                         final TextView selectedDueDateTextView = (TextView) view.getRootView().findViewById(R.id.selectedDueDate);
 
-                        if (item != null) {
-                            // Set assignment name
-                            assignmentNameEditText.setText(
-                                    item.getName() == null ? "Assignment Name" : item.getName()
-                            );
-                            // Set course name
-                            assignmentCourseNameEditText.setText(
-                                    item.getCourse() == null ? "Course Name" : item.getCourse().getName()
-                            );
-                            // Set due date
-                            selectedDueDateTextView.setText(
-                                    item.getDueDate() == null ? "Course Time" : item.getDueDate().toString()
-                            );
-
-                            return;
-                        }
-
                         if (assignmentNameEditText == null ||
                                 assignmentCourseNameEditText == null ||
                                 selectedDueDateTextView == null) {
@@ -163,6 +145,17 @@ public class AddAssignment extends Fragment {
                         );
 
                         // TODO : builder would be better here
+
+                        if (item != null) {
+                            // Set assignment name
+                            item.setName(assignmentName);
+                            // Set exam date
+                            item.setDueDate(date);
+                            // Set course
+                            item.setCourse(course);
+                            return;
+                        }
+
                         final AssignmentItem assignment = new AssignmentItem(assignmentName, "");
                         assignment.setDueDate(date);
                         if (course != null) {
