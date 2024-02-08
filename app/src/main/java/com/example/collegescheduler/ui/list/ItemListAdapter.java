@@ -67,11 +67,12 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (DataBase.getCourseDict().contains(holder.mItem.getId())) {
+                        if (DataBase.getCourseDict().containsKey(holder.mItem.getId())) {
                             DataBase.removeCourse(holder.mItem.getId());
-                        } else if (DataBase.getAssignmentDict().contains(holder.mItem.getId())){
+                            System.out.println(getCurrentList().size());
+                        } else if (DataBase.getAssignmentDict().containsKey(holder.mItem.getId())){
                             DataBase.removeAssignment(holder.mItem.getId());
-                        } else if (DataBase.getExamDict().contains(holder.mItem.getId())) {
+                        } else if (DataBase.getExamDict().containsKey(holder.mItem.getId())) {
                             DataBase.removeExam(holder.mItem.getId());
                         } else {
                             dialog.dismiss();
@@ -79,6 +80,7 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
                         }
 
                         submitList(getCurrentList());
+
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
