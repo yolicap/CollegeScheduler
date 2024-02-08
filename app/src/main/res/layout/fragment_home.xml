@@ -10,11 +10,11 @@
     tools:context=".ui.home.HomeFragment">
 
     <Button
-        android:id="@+id/sort"
+        android:id="@+id/notification_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:text="Sort" />
+        android:text="NOTIFS" />
 
     <Spinner
         android:id="@+id/spinner_home"

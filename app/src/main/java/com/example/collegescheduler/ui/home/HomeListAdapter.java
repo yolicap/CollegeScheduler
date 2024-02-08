@@ -1,13 +1,10 @@
 package com.example.collegescheduler.ui.home;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,7 +20,6 @@ import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentItemBinding;
 import com.example.collegescheduler.item.AbstractItem;
 import com.example.collegescheduler.item.AssignmentItem;
-import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
 import com.example.collegescheduler.ui.list.ItemListAdapter;
 import com.example.collegescheduler.ui.list.ItemOnClickListener;
@@ -32,13 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CustomAdapter extends ListAdapter<AbstractItem, com.example.collegescheduler.ui.list.ItemListAdapter.ViewHolder> {
-    public CustomAdapter(List<AbstractItem> items) {
+public class HomeListAdapter extends ListAdapter<AbstractItem, com.example.collegescheduler.ui.home.HomeListAdapter.ViewHolder> {
+    public HomeListAdapter(List<AbstractItem> items) {
         super(AbstractItem.DIFF_CALLBACK);
         submitList(items);
     }
 
-    public CustomAdapter() {super(AbstractItem.DIFF_CALLBACK);}
+    public HomeListAdapter() {super(AbstractItem.DIFF_CALLBACK);}
 
     @Override
     public void submitList(final List<AbstractItem> list) {
@@ -48,12 +44,12 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
 
     @NonNull
     @Override
-    public ItemListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemListAdapter.ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public HomeListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new HomeListAdapter.ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ItemListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mItem = getItem(position);
 //        holder.mIdView.setText(getItem(position).getId());
         AbstractItem item = getItem(position);
@@ -67,7 +63,7 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
         }
         type += getItem(position).getName();
         holder.mContentView.setText(type);
-        holder.mEdit.setOnClickListener(new ItemOnClickListener(holder.mItem));
+//        holder.mEdit.setOnClickListener(new ItemOnClickListener(holder.mItem));
 
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,46 +126,3 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
 
     }
 }
-
-/*
-public class CustomAdapter extends BaseAdapter {
-    Context context;
-    CourseItem[] courses;
-    ExamItem[] exams;
-    LayoutInflater inflater;
-
-    public CustomAdapter(Context appContext, CourseItem[] courses, ExamItem[] exams) {
-        this.context = appContext;
-        this.courses = courses;
-        this.exams = exams;
-        inflater = (LayoutInflater.from(appContext));
-    }
-
-    @Override
-    public int getCount() {
-        return exams.length + courses.length;
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        // view = inflater.inflate(R.layout.activity_list_view_test, null);
-        TextView line = view.findViewById(R.id.textViewID);
-        if (i < courses.length) {
-            line.setText(courses[i].toString());
-        } else {
-            line.setText(exams[i - courses.length].toString());
-        }
-        return view;
-    }
-}
-*/

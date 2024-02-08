@@ -31,8 +31,8 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private final ItemListAdapter customAdapter =
-            new ItemListAdapter();
+    private final HomeListAdapter customAdapter =
+            new HomeListAdapter();
     private int mColumnCount = 1;
 
     public HomeFragment() {
