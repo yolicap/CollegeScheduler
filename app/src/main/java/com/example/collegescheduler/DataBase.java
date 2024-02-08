@@ -97,6 +97,25 @@ public class DataBase {
         sortedList.sort(comparator);
         return sortedList;
     }
+
+    // TODO : more efficinet to store list of items TODO separately
+    public static List<AssignmentItem> getAssignmentListTodo() {
+        List<AssignmentItem> todoList = new ArrayList<>();
+        getAssignmentsList().forEach( assignmentItem -> {
+            if (assignmentItem.isTodo())
+                todoList.add(assignmentItem);
+        });
+        return todoList;
+    }
+
+    public static List<ExamItem> getExamListTodo() {
+        List<ExamItem> todoList = new ArrayList<>();
+        getExamListTodo().forEach( examItem -> {
+            if (examItem.isTodo())
+                todoList.add(examItem);
+        });
+        return todoList;
+    }
 }
 
 // create protected class when refactoring database to package
