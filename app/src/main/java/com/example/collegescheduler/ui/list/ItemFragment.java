@@ -28,6 +28,10 @@ import java.util.List;
  */
 public class ItemFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
+
+    // TODO : find better solution
+    public static Spinner assignmentSpinner = null;
+
     private final ItemListAdapter itemListAdapter =
             new ItemListAdapter();
     private int mColumnCount = 1;
@@ -70,22 +74,38 @@ public class ItemFragment extends Fragment {
         recyclerView.setAdapter(itemListAdapter);
 //        updateList(ItemContent.ITEMS);
 
-        /* Spinner */
-        Spinner spinner = (Spinner) view.findViewById(R.id.item_type_spinner);
-        // TODO : (refactor) extract class instead of extending this one
-        spinner.setOnItemSelectedListener(new ItemTypeSelectedListener(itemListAdapter));
+        /* AssignmentSortSpinner */
+        Spinner assignmentSortSpinner = (Spinner) view.findViewById(R.id.item_sort_by_spinner);
+        assignmentSpinner = assignmentSortSpinner;
+        assignmentSortSpinner.setOnItemSelectedListener(new AssignmentSortSelectedListener(itemListAdapter));
 
-        // Create an ArrayAdapter using the string array and a default spinner layout.
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        // Create an ArrayAdapter using the string array and a default itemTypeSpinner layout.
+        ArrayAdapter<CharSequence> assignmentSortAdapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.assignment_sort_types,
+                android.R.layout.simple_spinner_item
+                // TODO :
+        );
+        // Specify the layout to use when the list of choices appears.
+        assignmentSortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the itemTypeSpinnerAdapter to the itemTypeSpinner.
+        assignmentSortSpinner.setAdapter(assignmentSortAdapter);
+
+        /* Item Type Spinner */
+        Spinner itemTypeSpinner = (Spinner) view.findViewById(R.id.item_type_spinner);
+        // TODO : (refactor) extract class instead of extending this one
+        itemTypeSpinner.setOnItemSelectedListener(new ItemTypeSelectedListener(itemListAdapter));
+
+        // Create an ArrayAdapter using the string array and a default itemTypeSpinner layout.
+        ArrayAdapter<CharSequence> itemTypeSpinnerAdapter = ArrayAdapter.createFromResource(
                 context,
                 R.array.item_types,
                 android.R.layout.simple_spinner_item
         );
         // Specify the layout to use when the list of choices appears.
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner.
-        spinner.setAdapter(adapter);
-
+        itemTypeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the itemTypeSpinnerAdapter to the itemTypeSpinner.
+        itemTypeSpinner.setAdapter(itemTypeSpinnerAdapter);
 
         return view;
     }

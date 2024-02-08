@@ -9,6 +9,10 @@
         <item>Assignments</item>
         <item>Exams</item>
     </string-array>
+    <string-array name="assignment_sort_types">
+        <item>Due Date</item>
+        <item>Course</item>
+    </string-array>
     <string-array name="home_item_types">
         <item>All</item>
         <item>Assignments</item>

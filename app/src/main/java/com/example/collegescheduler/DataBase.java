@@ -8,6 +8,7 @@ import com.example.collegescheduler.item.ExamItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -89,6 +90,12 @@ public class DataBase {
 
     public static List<ExamItem> getExamsList() {
         return new ArrayList<ExamItem>(examDict.values());
+    }
+
+    public static List<AssignmentItem> getAssignmentListSorted(Comparator<AssignmentItem> comparator){
+        List<AssignmentItem> sortedList = new ArrayList<AssignmentItem>(assignmentDict.values());
+        sortedList.sort(comparator);
+        return sortedList;
     }
 }
 
