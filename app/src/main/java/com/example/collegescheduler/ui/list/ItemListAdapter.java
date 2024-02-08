@@ -53,7 +53,7 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = getItem(position);
-//        holder.mIdView.setText(getItem(position).getId());
+//      holder.mIdView.setText(getItem(position).getId());
         holder.mContentView.setText(getItem(position).getName());
         holder.mEdit.setOnClickListener(new ItemOnClickListener(holder.mItem));
 
@@ -71,7 +71,6 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
                     public void onClick(DialogInterface dialog, int which) {
                         if (DataBase.getCourseDict().containsKey(holder.mItem.getId())) {
                             DataBase.removeCourse(holder.mItem.getId());
-                            System.out.println(getCurrentList().size());
                         } else if (DataBase.getAssignmentDict().containsKey(holder.mItem.getId())){
                             DataBase.removeAssignment(holder.mItem.getId());
                         } else if (DataBase.getExamDict().containsKey(holder.mItem.getId())) {
@@ -83,7 +82,7 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
 
                         submitList(getCurrentList());
                         Navigation.findNavController(view).navigate(R.id.navigation_list);
-                        
+
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

@@ -9,6 +9,13 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
+    <Button
+        android:id="@+id/sort"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        android:text="Sort" />
+
     <Spinner
         android:id="@+id/spinner_home"
         android:layout_width="match_parent"
