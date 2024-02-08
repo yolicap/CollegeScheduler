@@ -3,6 +3,7 @@ package com.example.collegescheduler.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CustomAdapter extends ListAdapter<AbstractItem, com.example.collegescheduler.ui.list.ItemListAdapter.ViewHolder> {
+public class CustomAdapter extends ListAdapter<AbstractItem, ItemListAdapter.ViewHolder> {
     public CustomAdapter(List<AbstractItem> items) {
         super(AbstractItem.DIFF_CALLBACK);
         submitList(items);
@@ -48,12 +49,12 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
 
     @NonNull
     @Override
-    public ItemListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemListAdapter.ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ItemListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = getItem(position);
 //        holder.mIdView.setText(getItem(position).getId());
         AbstractItem item = getItem(position);
@@ -67,6 +68,14 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
         }
         type += getItem(position).getName();
         holder.mContentView.setText(type);
+
+        holder.mDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.mDone.setBackgroundResource(R.drawable.ic_check);
+            }
+        });
+
         holder.mEdit.setOnClickListener(new ItemOnClickListener(holder.mItem));
 
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +123,15 @@ public class CustomAdapter extends ListAdapter<AbstractItem, com.example.college
         public final Button mEdit;
         public final Button mDelete;
 
+        public final Button mDone;
+
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
             mIdView = binding.itemNumber;
             mContentView = binding.content;
-            mEdit = binding.edit;
-            mDelete = binding.delete;
+            mEdit = binding.todoedit;
+            mDelete = binding.tododelete;
+            mDone = binding.done;
         }
 
         @NonNull
