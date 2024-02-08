@@ -77,6 +77,8 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
                             dialog.dismiss();
                             return;
                         }
+
+                        submitList(getCurrentList());
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
