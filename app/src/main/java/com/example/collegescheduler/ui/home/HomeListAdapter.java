@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -60,17 +62,19 @@ public class HomeListAdapter extends ListAdapter<AbstractItem, HomeListAdapter.V
         if (item instanceof ExamItem) {
             type = "Exam: ";
         } else if (item instanceof AssignmentItem){
-            type = "Assignment: ";
+            type = "Asgmt: ";
         } else {
             type = "ERROR. Search CustomAdapter for this error to debug. ";
         }
         type += getItem(position).getName();
         holder.mContentView.setText(type);
 
-        holder.mDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.mDone.setBackgroundResource(R.drawable.ic_check);
+        holder.mDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if(isChecked)
+                    holder.mDone.setBackgroundResource(R.drawable.ic_check);
+                else holder.mDone.setBackgroundResource(R.drawable.ic_checkbox);
             }
         });
 
@@ -121,7 +125,7 @@ public class HomeListAdapter extends ListAdapter<AbstractItem, HomeListAdapter.V
         public final Button mEdit;
         public final Button mDelete;
 
-        public final Button mDone;
+        public final ToggleButton mDone;
 
         public ViewHolder(FragmentHomeItemBinding binding) {
             super(binding.getRoot());

@@ -22,7 +22,6 @@
         android:id="@+id/edit"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
         android:background="@drawable/ic_edit" />
 
     <Button

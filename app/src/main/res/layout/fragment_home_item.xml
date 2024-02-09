@@ -4,12 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <Button
+    <ToggleButton
         android:id="@+id/done"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:background="@drawable/ic_checkbox" />
+        android:textOn=""
+        android:textOff=""
+        android:background="@drawable/ic_checkbox"/>
 
     <TextView
         android:id="@+id/homeItemNumber"
@@ -29,7 +31,6 @@
         android:id="@+id/todoEdit"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
         android:background="@drawable/ic_edit" />
 
     <Button
