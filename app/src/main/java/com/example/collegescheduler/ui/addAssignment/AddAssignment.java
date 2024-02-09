@@ -139,7 +139,7 @@ public class AddAssignment extends Fragment {
                         // needs to be formatted properly ?
                         // TODO : format as 00-00-0000
                         final LocalDate date = LocalDate.parse(
-                                selectedDueDateTextView.getText().toString().isEmpty() ? "00/00/0000": selectedDueDateTextView.getText()
+                                selectedDueDateTextView.getText().toString().isEmpty() ? "00-00-0000": selectedDueDateTextView.getText()
                         );
                         final CourseItem course = DataBase.getCourseByName(
                                 assignmentCourseNameEditText.getText().toString()

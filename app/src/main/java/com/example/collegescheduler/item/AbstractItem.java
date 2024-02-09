@@ -12,7 +12,7 @@ public abstract class AbstractItem implements Comparable<AbstractItem>, Editable
     private String name;
     private String details;
     private LocalDateTime comparableTime;
-    private boolean isTodo;
+    private boolean isTodo = true;
 
     public AbstractItem(UUID id, String name, String details) {
         this.id = id;

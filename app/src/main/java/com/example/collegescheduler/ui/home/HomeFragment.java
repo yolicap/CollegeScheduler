@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onClick(View v) {
                 // update button text and flag
-                filterButton.setText(filterTodoOnly ? "ALL" : "TODO ONLY");
+                filterButton.setText(filterTodoOnly ? "SHOW ALL" : "TODO ONLY");
                 filterTodoOnly = !filterTodoOnly;
 
 
