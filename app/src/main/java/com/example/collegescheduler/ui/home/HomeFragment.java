@@ -1,5 +1,6 @@
 package com.example.collegescheduler.ui.home;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -22,6 +24,7 @@ import com.example.collegescheduler.item.AbstractItem;
 import com.example.collegescheduler.item.AssignmentItem;
 import com.example.collegescheduler.item.CourseItem;
 import com.example.collegescheduler.item.ExamItem;
+import com.example.collegescheduler.item.ItemType;
 import com.example.collegescheduler.ui.list.ItemFragment;
 import com.example.collegescheduler.ui.list.ItemListAdapter;
 
@@ -34,6 +37,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     private final HomeListAdapter homeListAdapter =
             new HomeListAdapter();
+
+    private boolean filterTodoOnly = false;
+    private ItemType itemShowing = ItemType.EXAM;
 
     private int mColumnCount = 1;
 
@@ -64,13 +70,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         Context context = view.getContext();
 
         /* RecyclerView Setup */
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.homeList);
+        RecyclerView recyclerView = view.findViewById(R.id.homeList);
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         recyclerView.setAdapter(homeListAdapter);
 //        updateList(ItemContent.ITEMS);
 
         /* Spinner */
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner_home);
+        Spinner spinner = view.findViewById(R.id.spinner_home);
         // TODO : (refactor) extract class instead of extending this one
         spinner.setOnItemSelectedListener(this);
         // Create an ArrayAdapter using the string array and a default spinner layout.
@@ -83,6 +89,26 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
+
+        /* Filter Button */
+        Button filterButton = view.findViewById(R.id.filter_button);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // update button text and flag
+                filterButton.setText(filterTodoOnly ? "ALL" : "TODO ONLY");
+                filterTodoOnly = !filterTodoOnly;
+
+
+                // TODO : "nobody likes just writing if statements everywhere but someone has to do it"
+
+                // fetch new list
+                if (itemShowing == ItemType.EXAM) updateToExam();
+                else if (itemShowing == ItemType.ASSIGNMENT) updateToAssignment();
+
+            }
+        });
+
         return view;
     }
 
@@ -91,20 +117,32 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // use position to show items in list
         // TODO : create ViewUpdater to update views when global lists are updated
         // TODO : create enum in item package
-        List<AbstractItem> newList = new ArrayList<AbstractItem>();
-        newList.addAll(DataBase.getAssignmentsList());
-        newList.addAll(DataBase.getExamsList());
         switch (position) {
-            case 2:
-                updateList(DataBase.getExamsList());
+            /* ASSIGNMENT */
+            case 0: updateToAssignment();
                 break;
+            /* EXAM (Default) */
             case 1:
-                updateList(DataBase.getAssignmentsList());
-                break;
-            case 0:
-            default:
-                updateList(newList);
+            default: updateToExam();
         }
+    }
+
+    private void updateToAssignment(){
+        if (filterTodoOnly) {
+            updateList(DataBase.getAssignmentListTodo());
+        } else {
+            updateList(DataBase.getAssignmentsList());
+        }
+        itemShowing = ItemType.ASSIGNMENT;
+    }
+
+    private void updateToExam(){
+        if (filterTodoOnly) {
+            updateList(DataBase.getExamListTodo());
+        } else {
+            updateList(DataBase.getExamsList());
+        }
+        itemShowing = ItemType.EXAM;
     }
 
     @Override
@@ -119,54 +157,3 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         homeListAdapter.submitList(list);
     }
 }
-
-/*
-public class HomeFragment extends Fragment {
-
-    private FragmentHomeBinding binding;
-
-    ListView simpleList;
-
-    int courseSize;
-    int examSize;
-    CourseItem[] courses;
-    ExamItem[] exams;
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // create binding
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        courseSize = DataBase.getCourseDict().size();
-        examSize = DataBase.getExamDict().size();
-        courses = new CourseItem[courseSize];
-        exams = new ExamItem[examSize];
-
-        // populate courses[] and exams[]
-        Enumeration<CourseItem> courseEnu = DataBase.getCourseDict().elements();
-        int ind = 0;
-        while (courseEnu.hasMoreElements()) {
-            courses[ind] = courseEnu.nextElement();
-            ind++;
-        }
-        Enumeration<ExamItem> examEnu = DataBase.getExamDict().elements();
-        ind = 0;
-        while (examEnu.hasMoreElements()) {
-            exams[ind] = examEnu.nextElement();
-        }
-
-        // handle ListView
-        simpleList = root.findViewById(R.id.list_view);
-        CustomAdapter customAdapter = new CustomAdapter(root.getContext(), courses, exams);
-        simpleList.setAdapter(customAdapter);
-
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-}
-*/

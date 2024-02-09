@@ -110,7 +110,7 @@ public class DataBase {
 
     public static List<ExamItem> getExamListTodo() {
         List<ExamItem> todoList = new ArrayList<>();
-        getExamListTodo().forEach( examItem -> {
+        getExamsList().forEach( examItem -> {
             if (examItem.isTodo())
                 todoList.add(examItem);
         });
