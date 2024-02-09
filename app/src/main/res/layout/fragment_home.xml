@@ -10,7 +10,7 @@
     tools:context=".ui.home.HomeFragment">
 
     <Button
-        android:id="@+id/notification_button"
+        android:id="@+id/filter_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"

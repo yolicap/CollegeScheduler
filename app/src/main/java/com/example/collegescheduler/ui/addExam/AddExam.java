@@ -100,7 +100,8 @@ public class AddExam extends Fragment {
                                                   int minute) {
                                 // on below line we are setting selected time
                                 // in our text view.
-                                selectedTimeTV.setText(hourOfDay + ":" + minute);
+
+                                selectedTimeTV.setText(String.format("%02d:%02d", hourOfDay, minute));
                             }
                         }, hour, minute, false);
                 // at last we are calling show to
