@@ -72,9 +72,10 @@ public class HomeListAdapter extends ListAdapter<AbstractItem, HomeListAdapter.V
         holder.mDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // TODO Auto-generated method stub
-                if(isChecked)
+                if(isChecked) {
                     holder.mDone.setBackgroundResource(R.drawable.ic_check);
-                else holder.mDone.setBackgroundResource(R.drawable.ic_checkbox);
+                    holder.mItem.setTodo(false);
+                } else {holder.mDone.setBackgroundResource(R.drawable.ic_checkbox); holder.mItem.setTodo(true);}
             }
         });
 
