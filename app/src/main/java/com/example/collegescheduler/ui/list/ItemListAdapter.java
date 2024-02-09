@@ -56,6 +56,8 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
 //      holder.mIdView.setText(getItem(position).getId());
         holder.mContentView.setText(getItem(position).getName());
         holder.mEdit.setOnClickListener(new ItemOnClickListener(holder.mItem));
+
+        // TODO : this class uses a lot of additional classes that contain a lot of code. lets keep them in their own file next time to keep the classes sanitary
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +101,6 @@ public class ItemListAdapter extends ListAdapter<AbstractItem, ItemListAdapter.V
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
-
         public final Button mEdit;
         public final Button mDelete;
         public AbstractItem mItem;
