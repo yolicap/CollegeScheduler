@@ -32,7 +32,7 @@ import java.util.List;
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String ARG_COLUMN_COUNT = "column-count";
 
-    private final HomeListAdapter customAdapter =
+    private final HomeListAdapter homeListAdapter =
             new HomeListAdapter();
 
     private int mColumnCount = 1;
@@ -40,8 +40,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public HomeFragment() {
     }
 
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
+    public static HomeFragment newInstance(int columnCount) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         /* RecyclerView Setup */
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.homeList);
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(customAdapter);
+        recyclerView.setAdapter(homeListAdapter);
 //        updateList(ItemContent.ITEMS);
 
         /* Spinner */
@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private void updateList(List<? extends AbstractItem> newList){
         ArrayList<AbstractItem> list = new ArrayList<AbstractItem>(newList);
         list.forEach(item -> System.out.println(item.getName()));
-        customAdapter.submitList(list);
+        homeListAdapter.submitList(list);
     }
 }
 

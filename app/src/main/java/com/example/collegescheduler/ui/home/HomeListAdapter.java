@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.DataBase;
 import com.example.collegescheduler.R;
+import com.example.collegescheduler.databinding.FragmentHomeBinding;
+import com.example.collegescheduler.databinding.FragmentHomeItemBinding;
 import com.example.collegescheduler.databinding.FragmentItemBinding;
 import com.example.collegescheduler.item.AbstractItem;
 import com.example.collegescheduler.item.AssignmentItem;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeListAdapter extends ListAdapter<AbstractItem, com.example.collegescheduler.ui.home.HomeListAdapter.ViewHolder> {
+public class HomeListAdapter extends ListAdapter<AbstractItem, HomeListAdapter.ViewHolder> {
     public HomeListAdapter(List<AbstractItem> items) {
         super(AbstractItem.DIFF_CALLBACK);
         submitList(items);
@@ -46,7 +48,7 @@ public class HomeListAdapter extends ListAdapter<AbstractItem, com.example.colle
     @NonNull
     @Override
     public HomeListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeListAdapter.ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new HomeListAdapter.ViewHolder(FragmentHomeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -121,12 +123,12 @@ public class HomeListAdapter extends ListAdapter<AbstractItem, com.example.colle
 
         public final Button mDone;
 
-        public ViewHolder(FragmentItemBinding binding) {
+        public ViewHolder(FragmentHomeItemBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
-            mEdit = binding.todoedit;
-            mDelete = binding.tododelete;
+            mIdView = binding.homeItemNumber;
+            mContentView = binding.homeContent;
+            mEdit = binding.todoEdit;
+            mDelete = binding.todoDelete;
             mDone = binding.done;
         }
 
